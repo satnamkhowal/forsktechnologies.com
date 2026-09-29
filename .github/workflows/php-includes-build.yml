@@ -1,36 +1,85 @@
-name: PHP includes conversion builder
+name: Diagnose PHP include render
 
 on:
   push:
     branches:
       - automation/php-includes-build
 
-permissions:
-  contents: write
-
 jobs:
-  refactor:
+  diagnose:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           ref: automation/php-includes-build
           fetch-depth: 0
-
-      - name: Build and verify conservative PHP include architecture
+      - name: Diagnose about page render mismatch
         shell: bash
         run: |
-          echo 'ZnJvbSBfX2Z1dHVyZV9fIGltcG9ydCBhbm5vdGF0aW9ucwoKaW1wb3J0IGNvbGxlY3Rpb25zCmltcG9ydCBoYXNobGliCmltcG9ydCByZQppbXBvcnQgc3VicHJvY2Vzcwpmcm9tIHBhdGhsaWIgaW1wb3J0IFBhdGgKClJPT1QgPSBQYXRoKCIuIikKaHRtbF9maWxlcyA9IHNvcnRlZChST09ULmdsb2IoIiouaHRtbCIpKQppZiBub3QgaHRtbF9maWxlczoKICAgIHJhaXNlIFN5c3RlbUV4aXQoIk5vIHJvb3QgSFRNTCBwYWdlcyBmb3VuZDsgcmVmdXNpbmcgdG8gcmVmYWN0b3IuIikKCm9yaWdpbmFscyA9IHtwLm5hbWU6IHAucmVhZF90ZXh0KGVuY29kaW5nPSJ1dGYtOCIpIGZvciBwIGluIGh0bWxfZmlsZXN9Cgpmb290ZXJfcmUgPSByZS5jb21waWxlKHInPGZvb3RlciBjbGFzcz0ieGItZm9vdGVyXGJbXHNcU10qPzwvZm9vdGVyPicpCnNjcmlwdHNfcmUgPSByZS5jb21waWxlKAogICAgcic8c2NyaXB0IGlkPSJwb3BwZXItanMiW1xzXFNdKj8nCiAgICByJzxzY3JpcHQgc3JjPSJhc3NldHMvanMvc2VhcmNoLWluZGV4XC5qcyI+PC9zY3JpcHQ+JwogICAgcic8c2NyaXB0IHNyYz0iYXNzZXRzL2pzL3N0YXRpY1wuanMiPjwvc2NyaXB0PicKKQoKZm9vdGVyX2dyb3VwczogZGljdFtzdHIsIGxpc3Rbc3RyXV0gPSBjb2xsZWN0aW9ucy5kZWZhdWx0ZGljdChsaXN0KQpmb290ZXJfY29udGVudDogZGljdFtzdHIsIHN0cl0gPSB7fQpzY3JpcHRzX2dyb3VwczogZGljdFtzdHIsIGxpc3Rbc3RyXV0gPSBjb2xsZWN0aW9ucy5kZWZhdWx0ZGljdChsaXN0KQpzY3JpcHRzX2NvbnRlbnQ6IGRpY3Rbc3RyLCBzdHJdID0ge30KCmZvciBuYW1lLCB0ZXh0IGluIG9yaWdpbmFscy5pdGVtcygpOgogICAgZm0gPSBmb290ZXJfcmUuc2VhcmNoKHRleHQpCiAgICBpZiBmbToKICAgICAgICBibG9jayA9IGZtLmdyb3VwKDApCiAgICAgICAgZGlnZXN0ID0gaGFzaGxpYi5zaGEyNTYoYmxvY2suZW5jb2RlKCkpLmhleGRpZ2VzdCgpCiAgICAgICAgZm9vdGVyX2dyb3Vwc1tkaWdlc3RdLmFwcGVuZChuYW1lKQogICAgICAgIGZvb3Rlcl9jb250ZW50W2RpZ2VzdF0gPSBibG9jawogICAgc20gPSBzY3JpcHRzX3JlLnNlYXJjaCh0ZXh0KQogICAgaWYgc206CiAgICAgICAgYmxvY2sgPSBzbS5ncm91cCgwKQogICAgICAgIGRpZ2VzdCA9IGhhc2hsaWIuc2hhMjU2KGJsb2NrLmVuY29kZSgpKS5oZXhkaWdlc3QoKQogICAgICAgIHNjcmlwdHNfZ3JvdXBzW2RpZ2VzdF0uYXBwZW5kKG5hbWUpCiAgICAgICAgc2NyaXB0c19jb250ZW50W2RpZ2VzdF0gPSBibG9jawoKaWYgbm90IGZvb3Rlcl9ncm91cHM6CiAgICByYWlzZSBTeXN0ZW1FeGl0KCJObyByZXVzYWJsZSBmb290ZXIgYmxvY2sgZGV0ZWN0ZWQuIikKaWYgbm90IHNjcmlwdHNfZ3JvdXBzOgogICAgcmFpc2UgU3lzdGVtRXhpdCgiTm8gcmV1c2FibGUgY29tbW9uIHNjcmlwdCBidW5kbGUgZGV0ZWN0ZWQuIikKCmZvb3Rlcl9oYXNoLCBmb290ZXJfcGFnZXMgPSBtYXgoZm9vdGVyX2dyb3Vwcy5pdGVtcygpLCBrZXk9bGFtYmRhIGl0ZW06IGxlbihpdGVtWzFdKSkKc2NyaXB0c19oYXNoLCBzY3JpcHRzX3BhZ2VzID0gbWF4KHNjcmlwdHNfZ3JvdXBzLml0ZW1zKCksIGtleT1sYW1iZGEgaXRlbTogbGVuKGl0ZW1bMV0pKQpjYW5vbmljYWxfZm9vdGVyID0gZm9vdGVyX2NvbnRlbnRbZm9vdGVyX2hhc2hdCmNhbm9uaWNhbF9zY3JpcHRzID0gc2NyaXB0c19jb250ZW50W3NjcmlwdHNfaGFzaF0KCmlmIGxlbihmb290ZXJfcGFnZXMpIDwgMjoKICAgIHJhaXNlIFN5c3RlbUV4aXQoIkZvb3RlciByZXVzZSBjb3VudCBpcyBiZWxvdyAyOyByZWZ1c2luZyB0byBjcmVhdGUgYSBmYWtlIHNoYXJlZCBpbmNsdWRlLiIpCmlmIGxlbihzY3JpcHRzX3BhZ2VzKSA8IDI6CiAgICByYWlzZSBTeXN0ZW1FeGl0KCJTY3JpcHQtYnVuZGxlIHJldXNlIGNvdW50IGlzIGJlbG93IDI7IHJlZnVzaW5nIHRvIGNyZWF0ZSBhIGZha2Ugc2hhcmVkIGluY2x1ZGUuIikKCmluY2x1ZGVzID0gUk9PVCAvICJpbmNsdWRlcyIKaW5jbHVkZXMubWtkaXIoZXhpc3Rfb2s9VHJ1ZSkKKGluY2x1ZGVzIC8gImZvb3Rlci5waHAiKS53cml0ZV90ZXh0KGNhbm9uaWNhbF9mb290ZXIsIGVuY29kaW5nPSJ1dGYtOCIpCihpbmNsdWRlcyAvICJzY3JpcHRzLnBocCIpLndyaXRlX3RleHQoY2Fub25pY2FsX3NjcmlwdHMsIGVuY29kaW5nPSJ1dGYtOCIpCgpmb290ZXJfbWFya2VyID0gIjw/cGhwIHJlcXVpcmUgX19ESVJfXyAuICcvaW5jbHVkZXMvZm9vdGVyLnBocCc7ID8+IgpzY3JpcHRzX21hcmtlciA9ICI8P3BocCByZXF1aXJlIF9fRElSX18gLiAnL2luY2x1ZGVzL3NjcmlwdHMucGhwJzsgPz4iCgpjb252ZXJ0ZWQ6IGxpc3Rbc3RyXSA9IFtdCmZvb3Rlcl9jb252ZXJ0ZWQ6IGxpc3Rbc3RyXSA9IFtdCnNjcmlwdHNfY29udmVydGVkOiBsaXN0W3N0cl0gPSBbXQoKZm9yIHNvdXJjZSBpbiBodG1sX2ZpbGVzOgogICAgdGV4dCA9IG9yaWdpbmFsc1tzb3VyY2UubmFtZV0KICAgIGNoYW5nZWQgPSBGYWxzZQoKICAgIGZtID0gZm9vdGVyX3JlLnNlYXJjaCh0ZXh0KQogICAgaWYgZm0gYW5kIGZtLmdyb3VwKDApID09IGNhbm9uaWNhbF9mb290ZXI6CiAgICAgICAgdGV4dCA9IHRleHRbOmZtLnN0YXJ0KCldICsgZm9vdGVyX21hcmtlciArIHRleHRbZm0uZW5kKCk6XQogICAgICAgIGNoYW5nZWQgPSBUcnVlCiAgICAgICAgZm9vdGVyX2NvbnZlcnRlZC5hcHBlbmQoc291cmNlLm5hbWUpCgogICAgc20gPSBzY3JpcHRzX3JlLnNlYXJjaCh0ZXh0KQogICAgaWYgc20gYW5kIHNtLmdyb3VwKDApID09IGNhbm9uaWNhbF9zY3JpcHRzOgogICAgICAgIHRleHQgPSB0ZXh0WzpzbS5zdGFydCgpXSArIHNjcmlwdHNfbWFya2VyICsgdGV4dFtzbS5lbmQoKTpdCiAgICAgICAgY2hhbmdlZCA9IFRydWUKICAgICAgICBzY3JpcHRzX2NvbnZlcnRlZC5hcHBlbmQoc291cmNlLm5hbWUpCgogICAgaWYgbm90IGNoYW5nZWQ6CiAgICAgICAgY29udGludWUKCiAgICB0YXJnZXQgPSBzb3VyY2Uud2l0aF9zdWZmaXgoIi5waHAiKQogICAgaWYgdGFyZ2V0LmV4aXN0cygpOgogICAgICAgIHJhaXNlIFN5c3RlbUV4aXQoZiJSZWZ1c2luZyB0byBvdmVyd3JpdGUgZXhpc3RpbmcgUEhQIHBhZ2U6IHt0YXJnZXR9IikKICAgIHRhcmdldC53cml0ZV90ZXh0KHRleHQsIGVuY29kaW5nPSJ1dGYtOCIpCiAgICBzb3VyY2UudW5saW5rKCkKICAgIGNvbnZlcnRlZC5hcHBlbmQoc291cmNlLm5hbWUpCgppZiBub3QgY29udmVydGVkOgogICAgcmFpc2UgU3lzdGVtRXhpdCgiTm8gcGFnZXMgbWF0Y2hlZCB2ZXJpZmllZCByZXVzYWJsZSBibG9ja3MuIikKCmh0YWNjZXNzID0gIlxuIi5qb2luKFsKICAgICJEaXJlY3RvcnlJbmRleCBpbmRleC5waHAgaW5kZXguaHRtbCIsCiAgICAiIiwKICAgICI8SWZNb2R1bGUgbW9kX3Jld3JpdGUuYz4iLAogICAgIlJld3JpdGVFbmdpbmUgT24iLAogICAgIiIsCiAgICAiIyBLZWVwIGxlZ2FjeS9wdWJsaWMgLmh0bWwgVVJMcyBjYW5vbmljYWwgZXZlbiB0aG91Z2ggY29udmVydGVkIHBhZ2VzIGFyZSBQSFAgaW50ZXJuYWxseS4iLAogICAgciJSZXdyaXRlQ29uZCAle1RIRV9SRVFVRVNUfSBccy8rKC4rPylcLnBocCg/Ols/XHNdKSBbTkNdIiwKICAgIHIiUmV3cml0ZVJ1bGUgXiguKylcLnBocCQgJDEuaHRtbCBbUj0zMDEsTCxORV0iLAogICAgIiIsCiAgICAiIyBJbnRlcm5hbGx5IHNlcnZlIGEgY29udmVydGVkIFBIUCBwYWdlIHdoZW4gaXRzIGhpc3RvcmljYWwgLmh0bWwgZmlsZSB3YXMgaW50ZW50aW9uYWxseSByZXBsYWNlZC4iLAogICAgIlJld3JpdGVDb25kICV7UkVRVUVTVF9GSUxFTkFNRX0gIS1mIiwKICAgIHIiUmV3cml0ZUNvbmQgJXtSRVFVRVNUX0ZJTEVOQU1FfSBeKC4rKVwuaHRtbCQiLAogICAgIlJld3JpdGVDb25kICUxLnBocCAtZiIsCiAgICByIlJld3JpdGVSdWxlIF4oLispXC5odG1sJCAkMS5waHAgW0xdIiwKICAgICI8L0lmTW9kdWxlPiIsCiAgICAiIiwKXSkKUGF0aCgiLmh0YWNjZXNzIikud3JpdGVfdGV4dChodGFjY2VzcywgZW5jb2Rpbmc9InV0Zi04IikKCmRvY3MgPSBQYXRoKCJkb2NzIikKZG9jcy5ta2RpcihleGlzdF9vaz1UcnVlKQoKcmVwb3J0X2xpbmVzID0gWwogICAgIiMgUEhQIGluY2x1ZGUgYXJjaGl0ZWN0dXJlIGF1ZGl0IiwKICAgICIiLAogICAgIlRoaXMgcmVmYWN0b3IgaXMgaW50ZW50aW9uYWxseSBjb25zZXJ2YXRpdmUuIEl0IG9ubHkgZXh0cmFjdHMgYmxvY2tzIHRoYXQgd2VyZSBwcm92ZW4gYnl0ZS1pZGVudGljYWwgYWNyb3NzIG11bHRpcGxlIHJvb3QgcGFnZXMuIiwKICAgICIiLAogICAgIiMjIFNoYXJlZCBpbmNsdWRlcyBjcmVhdGVkIiwKICAgICIiLAogICAgZiItIGBpbmNsdWRlcy9mb290ZXIucGhwYCDigJQgZXhhY3QgcmVwZWF0ZWQgZm9vdGVyIGJsb2NrOyBkZXRlY3RlZCBvbiAqKntsZW4oZm9vdGVyX3BhZ2VzKX0qKiBIVE1MIHBhZ2VzLiIsCiAgICBmIi0gYGluY2x1ZGVzL3NjcmlwdHMucGhwYCDigJQgZXhhY3QgcmVwZWF0ZWQgY29tbW9uIEphdmFTY3JpcHQgYnVuZGxlOyBkZXRlY3RlZCBvbiAqKntsZW4oc2NyaXB0c19wYWdlcyl9KiogSFRNTCBwYWdlcy4iLAogICAgIiIsCiAgICAiIyMgQ29udmVydGVkIHBhZ2VzIiwKICAgICIiLAogICAgZiIqKntsZW4oY29udmVydGVkKX0qKiByb290IHBhZ2VzIHdlcmUgY29udmVydGVkIGZyb20gYC5odG1sYCBmaWxlcyB0byBpbnRlcm5hbCBgLnBocGAgZmlsZXMuIFRoZWlyIHB1YmxpYy9pbnRlcm5hbCBsaW5rcyByZW1haW4gYC5odG1sYDsgYC5odGFjY2Vzc2AgbWFwcyBhbiBleGlzdGluZyBsZWdhY3kgYC5odG1sYCByZXF1ZXN0IHRvIHRoZSBtYXRjaGluZyBQSFAgZmlsZSB3aXRob3V0IGNoYW5naW5nIHRoZSBicm93c2VyIFVSTC4iLAogICAgIiIsCiAgICBmIkZvb3RlciBpbmNsdWRlIHVzZWQgb24gKip7bGVuKGZvb3Rlcl9jb252ZXJ0ZWQpfSoqIGNvbnZlcnRlZCBwYWdlcy4gQ29tbW9uIHNjcmlwdHMgaW5jbHVkZSB1c2VkIG9uICoqe2xlbihzY3JpcHRzX2NvbnZlcnRlZCl9KiogY29udmVydGVkIHBhZ2VzLiIsCiAgICAiIiwKICAgICIjIyBJbnRlbnRpb25hbGx5IG5vdCBleHRyYWN0ZWQiLAogICAgIiIsCiAgICAiLSAqKkhlYWRlci9uYXZpZ2F0aW9uOioqIGtlcHQgcGFnZS1sb2NhbCBiZWNhdXNlIHRoZSBleHBvcnQgY29udGFpbnMgcGFnZS1zcGVjaWZpYyBjdXJyZW50LW1lbnUvY3VycmVudC1wYWdlIGNsYXNzZXMuIFNoYXJpbmcgb25lIHN0YXRpYyBoZWFkZXIgd291bGQgdmlzaWJseSBtYXJrIHRoZSB3cm9uZyBuYXZpZ2F0aW9uIGl0ZW0gb24gc29tZSBwYWdlcy4iLAogICAgIi0gKipIZWFkOioqIGtlcHQgcGFnZS1sb2NhbCBiZWNhdXNlIHRpdGxlcyBhbmQgRWxlbWVudG9yL3Bvc3Qtc3BlY2lmaWMgQ1NTIGxpbmtzIGRpZmZlciBieSBwYWdlLiBUaGlzIHByZXNlcnZlcyBleGlzdGluZyBTRU8gbWV0YWRhdGEgYW5kIENTUyBvcmRlciB3aXRob3V0IGludmVudGluZyBhIG5ldyBtZXRhZGF0YSBtb2RlbCBkdXJpbmcgYSBzdHJ1Y3R1cmFsIHJlZmFjdG9yLiIsCiAgICAiLSAqKkVucXVpcnkvY29udGFjdCBDVEE6Kiogbm90IHByb21vdGVkIHRvIGEgZ2xvYmFsIGluY2x1ZGUgYmVjYXVzZSB0aGUgYXVkaXQgZGlkIG5vdCBwcm92ZSBvbmUgZXhhY3QgcmV1c2FibGUgYmxvY2sgYWNyb3NzIHRoZSBjb252ZXJ0ZWQgcGFnZSBzZXQuIiwKICAgICItICoqQnJlYWRjcnVtYnM6KiogcmV0YWluZWQgcGFnZS1sb2NhbCBiZWNhdXNlIHRoZWlyIGNvbnRlbnQgaXMgcGFnZS1zcGVjaWZpYyBhbmQgbm8gbm9ybWFsaXphdGlvbiBpcyByZXF1aXJlZCBmb3IgdGhpcyBzYWZlIHBhc3MuIiwKICAgICIiLAogICAgIiMjIENvbXBhdGliaWxpdHkgcnVsZXMiLAogICAgIiIsCiAgICAiLSBFeGlzdGluZyBgLmh0bWxgIGxpbmtzIGFyZSBwcmVzZXJ2ZWQuIiwKICAgICItIFJlbGF0aXZlIGFzc2V0IHBhdGhzIHJlbWFpbiB1bmNoYW5nZWQgYmVjYXVzZSB0aGUgYnJvd3Nlci12aXNpYmxlIFVSTCByZW1haW5zIHRoZSBoaXN0b3JpY2FsIHJvb3QtbGV2ZWwgYC5odG1sYCBVUkwuIiwKICAgICItIERpcmVjdCByZXF1ZXN0cyBmb3IgY29udmVydGVkIGAucGhwYCBVUkxzIGFyZSByZWRpcmVjdGVkIGJhY2sgdG8gYC5odG1sYCBvbiBBcGFjaGUvTGl0ZVNwZWVkIHZpYSBgLmh0YWNjZXNzYC4iLAogICAgIi0gVW5jb252ZXJ0ZWQgYC5odG1sYCBwYWdlcyBjb250aW51ZSB0byB3b3JrIGFzIHN0YXRpYyBmaWxlcy4iLAogICAgIi0gQ29udmVydGVkIHBhZ2VzIHJlcXVpcmUgUEhQIHBsdXMgQXBhY2hlL0xpdGVTcGVlZCByZXdyaXRlIHN1cHBvcnQ7IGEgcHVyZWx5IHN0YXRpYyBob3N0IGNhbm5vdCBleGVjdXRlIHRoZSBpbmNsdWRlcy4iLAogICAgIiIsCiAgICAiIyMgVmFsaWRhdGlvbiBwZXJmb3JtZWQgYXV0b21hdGljYWxseSIsCiAgICAiIiwKICAgICJFdmVyeSBjb252ZXJ0ZWQgcGFnZSB3YXMgcmVuZGVyZWQgd2l0aCBQSFAgQ0xJIGFuZCBjb21wYXJlZCBieXRlLWZvci1ieXRlIHdpdGggaXRzIG9yaWdpbmFsIEhUTUwgc291cmNlLiBQSFAgc3ludGF4IGNoZWNrcyB3ZXJlIHJ1biBmb3IgZXZlcnkgY29udmVydGVkIHBhZ2UgYW5kIGluY2x1ZGUuIFRoZSBidWlsZCBhbHNvIHZlcmlmaWVzIHRoYXQgZXZlcnkgY29udmVydGVkIGxlZ2FjeSBmaWxlbmFtZSBoYXMgZXhhY3RseSBvbmUgUEhQIHJlcGxhY2VtZW50IGFuZCB0aGF0IHNoYXJlZCBpbmNsdWRlIG1hcmtlcnMgYXJlIG5vdCBkdXBsaWNhdGVkLiIsCiAgICAiIiwKICAgICIjIyBDb252ZXJ0ZWQgbGVnYWN5IGZpbGVuYW1lcyIsCiAgICAiIiwKXQpyZXBvcnRfbGluZXMuZXh0ZW5kKGYiLSBge25hbWV9YCIgZm9yIG5hbWUgaW4gY29udmVydGVkKQpyZXBvcnRfbGluZXMuYXBwZW5kKCIiKQooZG9jcyAvICJwaHAtYXJjaGl0ZWN0dXJlLm1kIikud3JpdGVfdGV4dCgiXG4iLmpvaW4ocmVwb3J0X2xpbmVzKSwgZW5jb2Rpbmc9InV0Zi04IikKCnJlYWRtZSA9IFBhdGgoIlJFQURNRS5tZCIpCnJlYWRtZV90ZXh0ID0gcmVhZG1lLnJlYWRfdGV4dChlbmNvZGluZz0idXRmLTgiKQpyZWFkbWVfdGV4dCA9IHJlYWRtZV90ZXh0LnJlcGxhY2UoCiAgICAiIyBUZWNoY28g4oCUIHN0YW5kYWxvbmUgSFRNTCB3ZWJzaXRlIiwKICAgICIjIFRlY2hjbyDigJQgUEhQIGluY2x1ZGUgYXJjaGl0ZWN0dXJlIHdpdGggbGVnYWN5IEhUTUwgVVJMcyIsCiAgICAxLAopCnJlYWRtZV90ZXh0ID0gcmVhZG1lX3RleHQucmVwbGFjZSgKICAgICJPcGVuIGBpbmRleC5odG1sYCBpbiB5b3VyIGJyb3dzZXIuIFVwbG9hZCB0aGUgZW50aXJlIGZvbGRlciB0byBhbnkgc3RhdGljIHdlYnNpdGUgaG9zdCB0byBwdWJsaXNoIGl0LiBObyBXb3JkUHJlc3MgaW5zdGFsbGF0aW9uLCBQSFAsIGRhdGFiYXNlLCBucG0gaW5zdGFsbCwgb3IgYnVpbGQgc3RlcCBpcyBuZWVkZWQuIiwKICAgICJQdWJsaWMgbGlua3MgY29udGludWUgdG8gdXNlIHRoZSBleGlzdGluZyBgLmh0bWxgIFVSTHMuIFJlcGVhdGVkIHZlcmlmaWVkIHNpdGUgY2hyb21lIGlzIG5vdyBzZXJ2ZWQgdGhyb3VnaCBQSFAgaW5jbHVkZXMsIHNvIGNvbnZlcnRlZCBwYWdlcyByZXF1aXJlIGEgUEhQLWNhcGFibGUgQXBhY2hlL0xpdGVTcGVlZCBob3N0IHdpdGggcmV3cml0ZSBzdXBwb3J0LiBObyBXb3JkUHJlc3MgaW5zdGFsbGF0aW9uLCBkYXRhYmFzZSwgbnBtIGluc3RhbGwsIG9yIGJ1aWxkIHN0ZXAgaXMgbmVlZGVkLiIsCiAgICAxLAopCnJlYWRtZV90ZXh0ICs9ICJcblxuIyMgUEhQIGluY2x1ZGVzXG5cblNlZSBgZG9jcy9waHAtYXJjaGl0ZWN0dXJlLm1kYCBmb3IgdGhlIGNvbnNlcnZhdGl2ZSBjb252ZXJzaW9uIHNjb3BlLCBVUkwtcHJlc2VydmF0aW9uIHJ1bGVzLCBza2lwcGVkIGNvbXBvbmVudHMsIGFuZCB2YWxpZGF0aW9uIGRldGFpbHMuXG4iCnJlYWRtZS53cml0ZV90ZXh0KHJlYWRtZV90ZXh0LCBlbmNvZGluZz0idXRmLTgiKQoKc3VicHJvY2Vzcy5ydW4oWyJwaHAiLCAiLXYiXSwgY2hlY2s9VHJ1ZSwgc3Rkb3V0PXN1YnByb2Nlc3MuREVWTlVMTCkKbGludF90YXJnZXRzID0gW2luY2x1ZGVzIC8gImZvb3Rlci5waHAiLCBpbmNsdWRlcyAvICJzY3JpcHRzLnBocCJdICsgW1BhdGgobikud2l0aF9zdWZmaXgoIi5waHAiKSBmb3IgbiBpbiBjb252ZXJ0ZWRdCmZvciB0YXJnZXQgaW4gbGludF90YXJnZXRzOgogICAgc3VicHJvY2Vzcy5ydW4oWyJwaHAiLCAiLWwiLCBzdHIodGFyZ2V0KV0sIGNoZWNrPVRydWUsIHN0ZG91dD1zdWJwcm9jZXNzLkRFVk5VTEwpCgpmb3IgbGVnYWN5IGluIGNvbnZlcnRlZDoKICAgIHBocF9wYWdlID0gUGF0aChsZWdhY3kpLndpdGhfc3VmZml4KCIucGhwIikKICAgIHJlbmRlcmVkID0gc3VicHJvY2Vzcy5ydW4oCiAgICAgICAgWyJwaHAiLCBzdHIocGhwX3BhZ2UpXSwKICAgICAgICBjaGVjaz1UcnVlLAogICAgICAgIHN0ZG91dD1zdWJwcm9jZXNzLlBJUEUsCiAgICAgICAgc3RkZXJyPXN1YnByb2Nlc3MuUElQRSwKICAgICkuc3Rkb3V0LmRlY29kZSgidXRmLTgiKQogICAgaWYgcmVuZGVyZWQgIT0gb3JpZ2luYWxzW2xlZ2FjeV06CiAgICAgICAgcmFpc2UgU3lzdGVtRXhpdChmIlJlbmRlcmVkIG91dHB1dCBjaGFuZ2VkIGZvciB7bGVnYWN5fTsgcmVmdXNpbmcgdG8gY29tbWl0LiIpCgogICAgdHJhbnNmb3JtZWQgPSBwaHBfcGFnZS5yZWFkX3RleHQoZW5jb2Rpbmc9InV0Zi04IikKICAgIGlmIHRyYW5zZm9ybWVkLmNvdW50KGZvb3Rlcl9tYXJrZXIpID4gMSBvciB0cmFuc2Zvcm1lZC5jb3VudChzY3JpcHRzX21hcmtlcikgPiAxOgogICAgICAgIHJhaXNlIFN5c3RlbUV4aXQoZiJEdXBsaWNhdGUgc2hhcmVkIGluY2x1ZGUgbWFya2VyIGRldGVjdGVkIGluIHtwaHBfcGFnZX0uIikKCmZvciBsZWdhY3kgaW4gY29udmVydGVkOgogICAgaWYgUGF0aChsZWdhY3kpLmV4aXN0cygpOgogICAgICAgIHJhaXNlIFN5c3RlbUV4aXQoZiJMZWdhY3kgZmlsZSB1bmV4cGVjdGVkbHkgc3RpbGwgZXhpc3RzIGFmdGVyIGNvbnZlcnNpb246IHtsZWdhY3l9IikKICAgIGlmIG5vdCBQYXRoKGxlZ2FjeSkud2l0aF9zdWZmaXgoIi5waHAiKS5pc19maWxlKCk6CiAgICAgICAgcmFpc2UgU3lzdGVtRXhpdChmIk1pc3NpbmcgUEhQIHJlcGxhY2VtZW50IGZvciBjb252ZXJ0ZWQgcGFnZToge2xlZ2FjeX0iKQoKcHJpbnQoZiJDb252ZXJ0ZWQge2xlbihjb252ZXJ0ZWQpfSBwYWdlcy4iKQpwcmludChmIkZvb3RlciByZXVzZSBjb3VudDoge2xlbihmb290ZXJfcGFnZXMpfSIpCnByaW50KGYiU2NyaXB0IGJ1bmRsZSByZXVzZSBjb3VudDoge2xlbihzY3JpcHRzX3BhZ2VzKX0iKQo=' | base64 -d > /tmp/php_includes_refactor.py
-          python3 -m py_compile /tmp/php_includes_refactor.py
-          python3 /tmp/php_includes_refactor.py
+          python3 - <<'PY'
+          import collections
+          import hashlib
+          import re
+          import subprocess
+          from pathlib import Path
 
-      - name: Remove temporary workflow and commit generated architecture
-        shell: bash
-        run: |
-          rm -f .github/workflows/php-includes-build.yml
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
-          git commit -m "refactor: introduce shared PHP footer and scripts includes"
-          git push origin HEAD:automation/php-includes-build
+          originals = {p.name: p.read_text(encoding='utf-8') for p in Path('.').glob('*.html')}
+          about = originals['about.html']
+
+          def render(path):
+              result = subprocess.run(['php', str(path)], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+              print('php returncode:', result.returncode)
+              if result.stderr:
+                  print('php stderr:', result.stderr.decode('utf-8', errors='replace')[:2000])
+              return result.stdout.decode('utf-8', errors='replace')
+
+          Path('/tmp/about-raw.php').write_text(about, encoding='utf-8')
+          raw = render('/tmp/about-raw.php')
+          print('raw php equals original:', raw == about)
+
+          footer_re = re.compile(r'<footer class="xb-footer\b[\s\S]*?</footer>')
+          scripts_re = re.compile(r'<script id="popper-js"[\s\S]*?<script src="assets/js/search-index\.js"></script><script src="assets/js/static\.js"></script>')
+
+          def most_common_block(pattern):
+              groups = collections.defaultdict(list)
+              blocks = {}
+              for name, text in originals.items():
+                  m = pattern.search(text)
+                  if not m:
+                      continue
+                  block = m.group(0)
+                  digest = hashlib.sha256(block.encode()).hexdigest()
+                  groups[digest].append(name)
+                  blocks[digest] = block
+              digest, pages = max(groups.items(), key=lambda item: len(item[1]))
+              print('reuse count:', len(pages), 'sample pages:', pages[:10])
+              return blocks[digest]
+
+          footer = most_common_block(footer_re)
+          scripts = most_common_block(scripts_re)
+          Path('includes').mkdir(exist_ok=True)
+          Path('includes/footer.php').write_text(footer, encoding='utf-8')
+          Path('includes/scripts.php').write_text(scripts, encoding='utf-8')
+
+          transformed = about
+          fm = footer_re.search(transformed)
+          if fm and fm.group(0) == footer:
+              transformed = transformed[:fm.start()] + "<?php require __DIR__ . '/includes/footer.php'; ?>" + transformed[fm.end():]
+          sm = scripts_re.search(transformed)
+          if sm and sm.group(0) == scripts:
+              transformed = transformed[:sm.start()] + "<?php require __DIR__ . '/includes/scripts.php'; ?>" + transformed[sm.end():]
+          Path('about.php').write_text(transformed, encoding='utf-8')
+          rendered = render('about.php')
+          print('include render equals original:', rendered == about)
+          print('original length:', len(about), 'rendered length:', len(rendered))
+
+          if rendered != about:
+              limit = min(len(about), len(rendered))
+              idx = next((i for i in range(limit) if about[i] != rendered[i]), limit)
+              print('first diff index:', idx)
+              print('ORIGINAL CONTEXT:', repr(about[max(0, idx-160):idx+320]))
+              print('RENDERED CONTEXT:', repr(rendered[max(0, idx-160):idx+320]))
+              if len(about) != len(rendered) and idx == limit:
+                  print('difference begins at EOF')
+              raise SystemExit(1)
+          PY
