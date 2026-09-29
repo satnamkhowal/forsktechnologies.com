@@ -1,8 +1,153 @@
 /* Static-site accessibility and responsive fixes. */
-img{max-width:100%} :focus-visible{outline:3px solid #0068ff;outline-offset:4px}
+
+/*
+ * Reusable Forsk design tokens derived from the existing homepage/theme.
+ * These are intentionally aliases of the established Techco/Forsk palette
+ * so future pages can reuse the homepage visual language without redesigning it.
+ */
+:root{
+  --forsk-brand-primary:var(--bs-primary,#0044eb);
+  --forsk-brand-dark:var(--bs-dark,#020842);
+  --forsk-text:var(--bs-body-color,#49515b);
+  --forsk-surface:#fff;
+  --forsk-surface-soft:#f1f6fc;
+  --forsk-border:var(--bs-border-color,#e3f0ff);
+  --forsk-radius:var(--bs-border-radius,10px);
+  --forsk-radius-lg:var(--bs-border-radius-sm,20px);
+  --forsk-section-space:clamp(72px,8vw,120px);
+  --forsk-content-gap:clamp(24px,3vw,40px);
+  --forsk-shadow-soft:0 12px 36px rgba(2,8,66,.08);
+  --forsk-focus:#0068ff;
+}
+
+img{max-width:100%}
+:focus-visible{outline:3px solid var(--forsk-focus);outline-offset:4px}
 .elementor-invisible{visibility:visible!important}
 .static-form-note{font-size:13px;line-height:1.6;margin:12px 0;clear:both}
 .static-search{width:min(680px,calc(100% - 32px));max-height:80vh;padding:30px;border:0;border-radius:16px;color:#131923;background:#fff;box-shadow:0 20px 80px #0006}
 .static-search::backdrop{background:#081733b3}.static-search h2{font-size:26px}.static-search ul{padding-left:20px}.static-search li{margin:12px 0}.static-search a{color:#004bc4}.static-button{padding:10px 20px;border-radius:8px;border:0;background:#004bc4;color:#fff}
-@media(max-width:767px){.static-form-note{font-size:12px}body{overflow-x:clip}.xb-header-menu{max-width:100vw}}
+
+/* Homepage refinement: preserve structure, remove generated layout inconsistencies. */
+body.elementor-page-43{padding:0!important}
+
+/* Keep the homepage's established section rhythm, but make it responsive. */
+.elementor-43 .elementor-element.elementor-element-9fb6cd3,
+.elementor-43 .elementor-element.elementor-element-9f99559,
+.elementor-43 .elementor-element.elementor-element-441e6fb,
+.elementor-43 .elementor-element.elementor-element-b6fac97{
+  padding-top:var(--forsk-section-space)!important;
+  padding-bottom:var(--forsk-section-space)!important;
+}
+.elementor-43 .elementor-element.elementor-element-b27dbfa{
+  padding-bottom:var(--forsk-section-space)!important;
+}
+.elementor-43 .elementor-element.elementor-element-441e6fb,
+.elementor-43 .elementor-element.elementor-element-b6fac97,
+.elementor-43 .elementor-element.elementor-element-628febf{
+  margin-top:0!important;
+}
+.elementor-43 .elementor-element.elementor-element-628febf{margin-bottom:0!important}
+
+/* Typography hierarchy: retain Axiforma and the existing scale while improving wrapping. */
+.elementor-page-43 .heading_block .heading_text,
+.elementor-page-43 .business_consulting_hero_section h1{
+  text-wrap:balance;
+}
+.elementor-page-43 .heading_block .heading_description,
+.elementor-page-43 .heading_block p{
+  text-wrap:pretty;
+}
+.elementor-page-43 .business_consulting_hero_section h1{
+  font-size:clamp(48px,5.55vw,80px);
+  line-height:1.16;
+  letter-spacing:-.025em;
+}
+.elementor-page-43 .business_consulting_hero_section p{
+  font-size:clamp(18px,1.8vw,26px);
+  line-height:1.55;
+}
+
+/* Hero alignment and media treatment. */
+.elementor-page-43 .business_consulting_hero_section{
+  padding-top:clamp(140px,12vw,170px);
+  padding-bottom:clamp(72px,7vw,87px);
+}
+.elementor-page-43 .business_consulting_hero_image img{
+  display:block;
+  height:auto;
+}
+
+/* CTA hierarchy and accessible interaction size. */
+.elementor-page-43 .creative_btn .btn_label{
+  min-height:54px;
+  display:inline-flex;
+  align-items:center;
+}
+.elementor-page-43 .creative_btn,
+.elementor-page-43 .creative_btn .btn_icon{
+  flex-shrink:0;
+}
+.elementor-page-43 .creative_btn:focus-visible,
+.elementor-page-43 .main_menu a:focus-visible,
+.elementor-page-43 .xb-footer a:focus-visible{
+  border-radius:999px;
+}
+
+/* Card/media consistency without changing the established component shapes. */
+.elementor-page-43 .details_item_image,
+.elementor-page-43 .service_block .service_image,
+.elementor-page-43 .review_bg_box,
+.elementor-page-43 .instant_contact_form{
+  overflow:hidden;
+}
+.elementor-page-43 .review_bg_box,
+.elementor-page-43 .instant_contact_form{
+  border-radius:var(--forsk-radius);
+}
+.elementor-page-43 .review_block_3{height:100%}
+.elementor-page-43 .review_block_3 .review_commtent{text-wrap:pretty}
+
+/* Forms: clearer focus, consistent controls, and comfortable touch targets. */
+.elementor-page-43 .instant_contact_form .form-control,
+.elementor-page-43 .instant_contact_form .form-select{
+  min-height:52px;
+}
+.elementor-page-43 .instant_contact_form textarea.form-control{min-height:140px}
+.elementor-page-43 .instant_contact_form .form-control:focus,
+.elementor-page-43 .instant_contact_form .form-select:focus{
+  box-shadow:0 0 0 3px rgba(0,68,235,.12);
+}
+
+/* Smooth section transitions: full-bleed CTA already carries its own vertical spacing. */
+.elementor-page-43 .calltoaction_section{margin:0}
+
+@media(max-width:991px){
+  .elementor-page-43 .site_header_3{padding:20px 0}
+  .elementor-page-43 .business_consulting_hero_content{max-width:680px}
+  .elementor-page-43 .business_consulting_hero_image{padding-inline:0}
+  .elementor-page-43 .review_bg_box{padding:72px 28px}
+  .elementor-page-43 .instant_contact_form{padding:40px}
+}
+
+@media(max-width:767px){
+  .static-form-note{font-size:12px}
+  body{overflow-x:clip}
+  .xb-header-menu{max-width:100vw}
+  .elementor-page-43 .business_consulting_hero_section{padding-top:132px;padding-bottom:72px}
+  .elementor-page-43 .business_consulting_hero_section h1{font-size:clamp(42px,12vw,54px);line-height:1.12}
+  .elementor-page-43 .business_consulting_hero_section p{font-size:18px;line-height:1.6;margin-bottom:30px}
+  .elementor-page-43 .heading_block .heading_text{font-size:clamp(30px,8.5vw,40px);line-height:1.22;letter-spacing:-.02em}
+  .elementor-page-43 .review_bg_box{padding:64px 20px}
+  .elementor-page-43 .instant_contact_form{padding:32px 24px}
+  .elementor-page-43 .calltoaction_section{padding:72px 0}
+  .elementor-page-43 .creative_btn .btn_label{padding-inline:30px}
+}
+
+@media(max-width:479px){
+  .elementor-page-43 .business_consulting_hero_section{padding-top:120px}
+  .elementor-page-43 .business_consulting_hero_section h1{font-size:40px}
+  .elementor-page-43 .instant_contact_form{padding:28px 18px}
+  .elementor-page-43 .review_bg_box{padding-inline:16px}
+}
+
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
