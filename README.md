@@ -1,6 +1,6 @@
 # Techco â€” standalone HTML website
 
-Open `index.html` in your browser. Upload the entire folder to any static website host to publish it. No WordPress installation, PHP, database, npm install, or build step is needed.
+Public links continue to use the existing `.html` URLs. Repeated verified site chrome is now served through PHP includes, so converted pages require a PHP-capable Apache/LiteSpeed host with rewrite support. No WordPress installation, database, npm install, or build step is needed.
 
 ## Included
 
@@ -33,3 +33,8 @@ All pages use relative links to these folders, so the website also works in a su
 ## HTML pages
 
 All 128 HTML pages are in the website root. The main page is `index.html`; other pages use descriptive names such as `about.html`, `contact.html`, `services.html`, `blog-page-2.html` and `service-it-management-services.html`. Date archives use `archive-` prefixes. See `page-map.json` for the complete old-to-new filename mapping. Resources remain in `assets/`.
+
+
+## PHP includes
+
+See `docs/php-architecture.md` for the conservative conversion scope, URL-preservation rules, skipped components, and validation details.

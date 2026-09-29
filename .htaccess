@@ -1,0 +1,15 @@
+DirectoryIndex index.php index.html
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# Preserve historical/public .html URLs for pages implemented internally in PHP.
+RewriteCond %{THE_REQUEST} \s/+(.+?)\.php(?:[?\s]) [NC]
+RewriteRule ^(.+)\.php$ $1.html [R=301,L,NE]
+
+# Internally serve a converted PHP file only when the historical .html file is absent.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} ^(.+)\.html$
+RewriteCond %1.php -f
+RewriteRule ^(.+)\.html$ $1.php [L]
+</IfModule>
