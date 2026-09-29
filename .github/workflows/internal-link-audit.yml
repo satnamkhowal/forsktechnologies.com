@@ -1,0 +1,37 @@
+name: Internal Link Audit
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '*.html'
+      - 'page-map.json'
+      - 'scripts/audit_internal_links.py'
+      - '.github/workflows/internal-link-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run contextual internal-link audit
+        run: python scripts/audit_internal_links.py
+
+      - name: Upload audit reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: internal-link-audit
+          path: reports/
+          if-no-files-found: warn
