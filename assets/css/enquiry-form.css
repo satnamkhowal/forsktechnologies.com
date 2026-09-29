@@ -1,0 +1,63 @@
+.forsk-enquiry-honeypot {
+  position: absolute !important;
+  left: -10000px !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.forsk-field-error {
+  min-height: 1.25em;
+  margin-top: 0.35rem;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: #b42318;
+}
+
+.forsk-enquiry-invalid {
+  border-color: #b42318 !important;
+  box-shadow: 0 0 0 1px #b42318 !important;
+}
+
+.forsk-enquiry-status {
+  display: none;
+  margin: 0 0 1rem;
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  line-height: 1.5;
+}
+
+.forsk-enquiry-status.is-visible {
+  display: block;
+}
+
+.forsk-enquiry-status.is-success {
+  color: #067647;
+  background: #ecfdf3;
+  border: 1px solid #abefc6;
+}
+
+.forsk-enquiry-status.is-error {
+  color: #b42318;
+  background: #fef3f2;
+  border: 1px solid #fecdca;
+}
+
+.forsk-enquiry-form [aria-busy="true"],
+form[data-static-form="contact"] [aria-busy="true"] {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.forsk-enquiry-privacy-note {
+  margin: 0 0 0.75rem;
+  font-size: 0.875rem;
+  opacity: 0.8;
+}
+
+.forsk-optional {
+  font-weight: 400;
+  opacity: 0.75;
+}
