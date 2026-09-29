@@ -13,7 +13,7 @@
   --forsk-surface-soft:#f1f6fc;
   --forsk-border:var(--bs-border-color,#e3f0ff);
   --forsk-radius:var(--bs-border-radius,10px);
-  --forsk-radius-lg:var(--bs-border-radius-sm,20px);
+  --forsk-radius-lg:var(--bs-border-radius-lg,20px);
   --forsk-section-space:clamp(72px,8vw,120px);
   --forsk-content-gap:clamp(24px,3vw,40px);
   --forsk-shadow-soft:0 12px 36px rgba(2,8,66,.08);
