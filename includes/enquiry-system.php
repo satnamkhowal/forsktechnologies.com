@@ -68,9 +68,20 @@ function forsk_enquiry_start_session(): void
 function forsk_enquiry_issue_token(): string
 {
     forsk_enquiry_start_session();
+    $now = time();
+    $tokens = isset($_SESSION['forsk_enquiry_tokens']) && is_array($_SESSION['forsk_enquiry_tokens'])
+        ? $_SESSION['forsk_enquiry_tokens']
+        : [];
+
+    foreach ($tokens as $existingToken => $issuedAt) {
+        if (!is_int($issuedAt) || $issuedAt < ($now - 3600)) {
+            unset($tokens[$existingToken]);
+        }
+    }
+
     $token = bin2hex(random_bytes(32));
-    $_SESSION['forsk_enquiry_csrf'] = $token;
-    $_SESSION['forsk_enquiry_started_at'] = time();
+    $tokens[$token] = $now;
+    $_SESSION['forsk_enquiry_tokens'] = array_slice($tokens, -8, null, true);
 
     return $token;
 }
@@ -78,18 +89,22 @@ function forsk_enquiry_issue_token(): string
 function forsk_enquiry_verify_csrf(string $token): bool
 {
     forsk_enquiry_start_session();
-    $expected = isset($_SESSION['forsk_enquiry_csrf']) ? (string) $_SESSION['forsk_enquiry_csrf'] : '';
-    if ($token === '' || $expected === '' || !hash_equals($expected, $token)) {
+    if ($token === '') {
         return false;
     }
 
-    $startedAt = (int) ($_SESSION['forsk_enquiry_started_at'] ?? 0);
+    $tokens = isset($_SESSION['forsk_enquiry_tokens']) && is_array($_SESSION['forsk_enquiry_tokens'])
+        ? $_SESSION['forsk_enquiry_tokens']
+        : [];
+    $startedAt = isset($tokens[$token]) ? (int) $tokens[$token] : 0;
     $minimum = (int) forsk_enquiry_config()['minimum_fill_seconds'];
+
     if ($startedAt <= 0 || (time() - $startedAt) < $minimum) {
         return false;
     }
 
-    unset($_SESSION['forsk_enquiry_csrf'], $_SESSION['forsk_enquiry_started_at']);
+    unset($tokens[$token]);
+    $_SESSION['forsk_enquiry_tokens'] = $tokens;
     return true;
 }
 
@@ -120,7 +135,7 @@ function forsk_enquiry_respond(int $status, array $payload): void
     echo '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'
         . htmlspecialchars($title, ENT_QUOTES, 'UTF-8')
         . '</title></head><body><main><h1>' . htmlspecialchars($title, ENT_QUOTES, 'UTF-8') . '</h1><p>' . $message
-        . '</p><p><a href="javascript:history.back()">Go back</a></p></main></body></html>';
+        . '</p><p><a href="/">Return to website</a></p></main></body></html>';
     exit;
 }
 
@@ -150,6 +165,18 @@ function forsk_enquiry_value(array $input, array $keys, int $maxLength): string
     return '';
 }
 
+function forsk_enquiry_clean_source_page($value): string
+{
+    $value = forsk_enquiry_normalize_text($value, 255);
+    $path = parse_url($value, PHP_URL_PATH);
+    if (!is_string($path)) {
+        $path = '';
+    }
+    $path = preg_replace('/[^A-Za-z0-9_\.\/-]/', '', $path) ?? '';
+
+    return substr($path, 0, 255);
+}
+
 function forsk_enquiry_validate(array $input): array
 {
     $data = [
@@ -158,7 +185,7 @@ function forsk_enquiry_validate(array $input): array
         'phone' => forsk_enquiry_value($input, ['phone', 'text-265', 'text-968'], 25),
         'company' => forsk_enquiry_value($input, ['company', 'text-969'], 120),
         'message' => forsk_enquiry_value($input, ['message', 'textarea-65', 'textarea-579'], 3000),
-        'source_page' => forsk_enquiry_value($input, ['source_page'], 255),
+        'source_page' => forsk_enquiry_clean_source_page($input['source_page'] ?? ''),
         'source_form' => forsk_enquiry_value($input, ['source_form'], 80),
     ];
 
@@ -270,7 +297,7 @@ function forsk_enquiry_log(string $event, string $requestId, array $context = []
         'time' => gmdate('c'),
         'event' => $event,
         'request_id' => $requestId,
-        'source_page' => isset($context['source_page']) ? forsk_enquiry_normalize_text($context['source_page'], 255) : '',
+        'source_page' => forsk_enquiry_clean_source_page($context['source_page'] ?? ''),
         'ip_hash' => substr(forsk_enquiry_ip_hash(), 0, 16),
     ];
     $line = json_encode($safe, JSON_UNESCAPED_SLASHES) . PHP_EOL;
@@ -345,7 +372,6 @@ function forsk_enquiry_send_mail(array $data, string $requestId): array
         'From: ' . $from,
         'Reply-To: ' . str_replace(["\r", "\n"], '', $data['email']),
         'Content-Type: text/plain; charset=UTF-8',
-        'X-Content-Type-Options: nosniff',
     ];
 
     return ['configured' => true, 'success' => mail($to, $subject, $body, implode("\r\n", $headers))];
