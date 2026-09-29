@@ -16,6 +16,7 @@
         .skip-link{position:fixed;top:8px;left:8px;z-index:100000;padding:10px 14px;border-radius:8px;background:#fff;color:#020842;font-weight:700;transform:translateY(-160%);transition:transform .15s ease}
         .skip-link:focus{transform:translateY(0)}
         .review_bg_box.bg-success .text-white,.badge.bg-secondary{color:#020842!important}
+        @media(min-width:992px){.dropdown:focus-within>.dropdown-menu{display:block;transform:translateY(0);z-index:1000}}
         @media(max-width:991px){.xb-menu-toggle,.xb-menu-close,.mobile_menu_btn,.xb-nav-mobile{min-width:44px!important;min-height:44px!important}.xb-menu-toggle{top:2px!important;width:44px!important;height:44px!important;line-height:44px!important}}
         @media(prefers-reduced-motion:reduce){.skip-link{transition:none}}
       `;
@@ -53,6 +54,7 @@
         const expanded = Boolean(document.querySelector('.xb-header-menu')?.classList.contains('active'));
         e.setAttribute('aria-expanded', String(expanded));
         e.setAttribute('aria-label', expanded ? 'Close navigation' : 'Open navigation');
+        if (expanded) setTimeout(() => document.querySelector('.xb-header-menu.active .xb-menu-close')?.focus(), 0);
       });
     });
 
@@ -70,6 +72,14 @@
           e.setAttribute('aria-expanded', String(e.classList.contains('active')));
           e.addEventListener('click', () => setTimeout(() => e.setAttribute('aria-expanded', String(e.classList.contains('active'))), 0));
         }
+      } else {
+        e.addEventListener('click', () => setTimeout(() => {
+          document.querySelectorAll('.xb-nav-mobile').forEach(n => {
+            n.setAttribute('aria-expanded','false');
+            n.setAttribute('aria-label','Open navigation');
+          });
+          if (lastMenuOpener) lastMenuOpener.focus();
+        }, 0));
       }
       e.addEventListener('keydown', event => {
         if (['Enter',' '].includes(event.key)) {
@@ -107,6 +117,10 @@
       control.addEventListener('input', clearInvalid);
       control.addEventListener('change', clearInvalid);
     });
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.querySelectorAll('.swiper').forEach(el => el.swiper?.autoplay?.stop?.());
+    }
 
     document.querySelectorAll('form[data-static-form]').forEach(form => {
       form.addEventListener('submit', event => {
