@@ -1,0 +1,23 @@
+{
+  "pages_checked_for_local_links": 128,
+  "missing_local_references": 0,
+  "remaining_origin_links": 0,
+  "browser_checks": 10,
+  "viewports": [
+    390,
+    1440
+  ],
+  "javascript_errors": 0,
+  "failed_local_requests": 0,
+  "broken_images": 0,
+  "interactions_passed": [
+    "Mobile navigation opens",
+    "Mobile submenu expands",
+    "Local search returns linked results",
+    "Escape closes navigation",
+    "Pricing toggle switches",
+    "Form validates and downloads request without sending",
+    "Homepage opens directly from disk"
+  ],
+  "external_content": "Google Maps and linked YouTube videos require internet. Form sending requires a backend."
+}

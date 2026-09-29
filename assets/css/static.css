@@ -1,0 +1,8 @@
+/* Static-site accessibility and responsive fixes. */
+img{max-width:100%} :focus-visible{outline:3px solid #0068ff;outline-offset:4px}
+.elementor-invisible{visibility:visible!important}
+.static-form-note{font-size:13px;line-height:1.6;margin:12px 0;clear:both}
+.static-search{width:min(680px,calc(100% - 32px));max-height:80vh;padding:30px;border:0;border-radius:16px;color:#131923;background:#fff;box-shadow:0 20px 80px #0006}
+.static-search::backdrop{background:#081733b3}.static-search h2{font-size:26px}.static-search ul{padding-left:20px}.static-search li{margin:12px 0}.static-search a{color:#004bc4}.static-button{padding:10px 20px;border-radius:8px;border:0;background:#004bc4;color:#fff}
+@media(max-width:767px){.static-form-note{font-size:12px}body{overflow-x:clip}.xb-header-menu{max-width:100vw}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
