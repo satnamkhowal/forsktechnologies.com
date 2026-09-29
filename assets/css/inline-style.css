@@ -1,1 +1,2 @@
-/* No additional inline stylesheet rules. */
+/* Forsk Technologies global design-system compatibility layer. */
+@import url("./forsk-design-system.css");
