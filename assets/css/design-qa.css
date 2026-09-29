@@ -1,0 +1,251 @@
+/* Forsk Technologies final Design QA alignment.
+ * Homepage remains the reference design system; these rules normalize exported
+ * inner-page variants without changing page structure or URLs.
+ */
+
+/* Typography and heading rhythm */
+body:not(.elementor-page-43) .heading_block .heading_text,
+body:not(.elementor-page-43) .breadcrumb h1,
+body:not(.elementor-page-43) .page_title,
+body:not(.elementor-page-43) .details_item_title {
+  text-wrap: balance;
+  letter-spacing: -0.02em;
+}
+
+body:not(.elementor-page-43) .heading_block .heading_description,
+body:not(.elementor-page-43) .heading_block p,
+body:not(.elementor-page-43) .details_item_content p {
+  text-wrap: pretty;
+}
+
+/* Keep the shared 1320px content grid and align legacy 130px helpers to the
+   homepage's responsive section rhythm. */
+body:not(.elementor-page-43) .pt-130 {
+  padding-top: var(--forsk-section-space, clamp(72px, 8vw, 120px)) !important;
+}
+body:not(.elementor-page-43) .pb-130 {
+  padding-bottom: var(--forsk-section-space, clamp(72px, 8vw, 120px)) !important;
+}
+
+/* Buttons / CTAs */
+body:not(.elementor-page-43) .creative_btn .btn_label {
+  min-height: 54px;
+  display: inline-flex;
+  align-items: center;
+}
+body:not(.elementor-page-43) .creative_btn,
+body:not(.elementor-page-43) .creative_btn .btn_icon {
+  flex-shrink: 0;
+}
+body:not(.elementor-page-43) .creative_btn:focus-visible,
+body:not(.elementor-page-43) .main-menu a:focus-visible,
+body:not(.elementor-page-43) .xb-footer a:focus-visible {
+  border-radius: 999px;
+}
+
+/* Forms */
+body:not(.elementor-page-43) .form-control,
+body:not(.elementor-page-43) .form-select {
+  min-height: 52px;
+  border-radius: var(--forsk-radius, 10px);
+}
+body:not(.elementor-page-43) textarea.form-control {
+  min-height: 140px;
+}
+body:not(.elementor-page-43) .form-control:focus,
+body:not(.elementor-page-43) .form-select:focus {
+  border-color: var(--forsk-brand-primary, #0044eb);
+  box-shadow: 0 0 0 3px rgba(0, 68, 235, 0.12);
+}
+
+/* Reusable surfaces: keep component geometry but eliminate exported clipping
+   and radius inconsistencies on the most common card/form families. */
+body:not(.elementor-page-43) .instant_contact_form,
+body:not(.elementor-page-43) .review_bg_box,
+body:not(.elementor-page-43) .pricing_block {
+  border-radius: var(--forsk-radius, 10px);
+  overflow: hidden;
+}
+body:not(.elementor-page-43) .service_block .service_image,
+body:not(.elementor-page-43) .blog_post_block .image_wrap,
+body:not(.elementor-page-43) .team_block .team_member_image,
+body:not(.elementor-page-43) .case_study_block .image_wrap,
+body:not(.elementor-page-43) .details_item_image {
+  overflow: hidden;
+}
+
+/* Header QA: exported Header 1/2/4/ML variants were the biggest source of
+   "different website" drift. Keep their markup/menu behavior, but give them
+   the homepage Header 3 visual language. */
+.site_header_1 .header_top,
+.site_header_4 .header_top,
+.site_header_1 .header-logo .badge {
+  display: none !important;
+}
+
+.site_header_1 .header-logo img,
+.site_header_2 .header-logo img,
+.site_header_3 .header-logo img {
+  object-fit: contain;
+  object-position: left center;
+}
+
+@media (min-width: 1200px) {
+  .site_header_1,
+  .site_header_2 {
+    padding: 50px 0;
+    background: transparent !important;
+  }
+
+  .site_header_1.sticky,
+  .site_header_2.sticky {
+    padding: 10px 0;
+  }
+
+  .site_header_1 .header_bottom,
+  .site_header_2 .header_bottom,
+  .site_header_1.sticky .header_bottom,
+  .site_header_2.sticky .header_bottom {
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+  }
+
+  .site_header_1 .container,
+  .site_header_2 .container {
+    max-width: 1730px;
+  }
+
+  .site_header_1 .xb-menu-inner,
+  .site_header_2 .xb-menu-inner {
+    padding: 0 60px;
+    border-radius: 50px;
+    background: var(--forsk-surface, #fff);
+    box-shadow: 0 4px 4px rgba(4, 9, 20, 0.02);
+  }
+
+  .site_header_1.sticky .xb-menu-inner,
+  .site_header_2.sticky .xb-menu-inner {
+    box-shadow: 0 4px 4px rgba(4, 9, 20, 0.08);
+  }
+
+  .site_header_1 .main-menu > ul > li > a,
+  .site_header_2 .main-menu > ul > li > a {
+    padding: 15px 0;
+    color: var(--forsk-brand-dark, #020842);
+  }
+
+  .site_header_1 .main-menu > ul > li:not(:last-child),
+  .site_header_2 .main-menu > ul > li:not(:last-child) {
+    margin-right: 40px;
+  }
+
+  .site_header_2 .main-menu > ul > li > a span {
+    padding: 0;
+    border: 0 !important;
+    border-radius: 0;
+  }
+
+  .site_header_2:not(.sticky) .main-menu > ul > li > a,
+  .site_header_2:not(.sticky) .main_menu_list > li > a,
+  .site_header_2 .main-menu ul li:hover > a,
+  .site_header_2 .main-menu ul li.current-menu-ancestor > a,
+  .site_header_2 .main-menu ul li.current_page_item > a {
+    color: var(--forsk-brand-dark, #020842);
+  }
+
+  .site_header_1 .main-menu ul li:hover > a,
+  .site_header_1 .main-menu ul li.current-menu-ancestor > a,
+  .site_header_1 .main-menu ul li.current_page_item > a,
+  .site_header_2 .main-menu ul li:hover > a,
+  .site_header_2 .main-menu ul li.current-menu-ancestor > a,
+  .site_header_2 .main-menu ul li.current_page_item > a {
+    color: var(--forsk-brand-primary, #0044eb);
+  }
+
+  /* Header 2 templates export both dark- and light-surface marks. Once the
+     nav is normalized to a white surface, always show the official light-surface mark. */
+  .site_header_2 .header-logo img:first-child:not(:only-child) {
+    display: none !important;
+  }
+  .site_header_2 .header-logo img:last-child {
+    display: block !important;
+  }
+}
+
+/* Footer: preserve each footer's information architecture/background, while
+   standardizing type rhythm, link interaction and edge treatment. */
+.xb-footer {
+  font-family: var(--bs-body-font-family, "Axiforma Regular", sans-serif);
+}
+.xb-footer h1,
+.xb-footer h2,
+.xb-footer h3,
+.xb-footer h4,
+.xb-footer h5,
+.xb-footer h6 {
+  font-family: var(--bs-heading-font-family, "Axiforma Bold", sans-serif);
+}
+.xb-footer .copyright_text {
+  font-size: 14px;
+  line-height: 1.6;
+}
+.xb-footer .icon_list > li {
+  line-height: 1.65;
+}
+.xb-footer img {
+  height: auto;
+}
+.xb-footer a:focus-visible {
+  outline-offset: 4px;
+}
+
+/* Tablet/mobile */
+@media (max-width: 1199px) {
+  .site_header_1 .header_top,
+  .site_header_4 .header_top {
+    display: none !important;
+  }
+
+  .site_header_1 .header_bottom {
+    padding: 18px 0;
+    border-radius: 0 !important;
+  }
+
+  .site_header_1 .main_menu {
+    top: 90px !important;
+  }
+
+  .site_header_1 + main {
+    padding-top: 90px;
+  }
+
+  .site_header_1 .header-logo .badge {
+    display: none !important;
+  }
+}
+
+@media (max-width: 767px) {
+  body:not(.elementor-page-43) .heading_block .heading_text,
+  body:not(.elementor-page-43) .breadcrumb h1,
+  body:not(.elementor-page-43) .page_title {
+    font-size: clamp(30px, 8.5vw, 40px);
+    line-height: 1.22;
+    letter-spacing: -0.02em;
+  }
+
+  body:not(.elementor-page-43) .creative_btn .btn_label {
+    padding-inline: 30px;
+  }
+
+  body:not(.elementor-page-43) .instant_contact_form {
+    padding: 32px 24px;
+  }
+}
+
+@media (max-width: 479px) {
+  body:not(.elementor-page-43) .instant_contact_form {
+    padding: 28px 18px;
+  }
+}
