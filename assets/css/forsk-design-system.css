@@ -1,0 +1,471 @@
+/*
+ * Forsk Technologies Design System
+ * Source of truth: current homepage + official blue/black/green logo family.
+ * Purpose: unify visual tokens and reusable component states without changing
+ * the site's existing layout structure or URL/page architecture.
+ */
+
+:root,
+[data-bs-theme="light"] {
+  /* Brand */
+  --brand-primary: #0044EB;
+  --brand-primary-deep: #003796;
+  --brand-primary-soft: #EAF1FF;
+  --brand-secondary: #020842;
+  --brand-accent: #47B16A;
+  --brand-accent-deep: #378C53;
+  --brand-accent-soft: #EDF8F0;
+
+  /* Text */
+  --text-primary: #131923;
+  --text-secondary: #49515B;
+  --text-muted: #6E7783;
+  --text-inverse: #FFFFFF;
+
+  /* Surfaces */
+  --page-background: #FFFFFF;
+  --surface: #FFFFFF;
+  --surface-alt: #F1F6FC;
+  --surface-dark: #020842;
+  --border: #E3F0FF;
+  --border-strong: #CCE3FF;
+
+  /* Semantic */
+  --success: #47B16A;
+  --success-soft: #EDF8F0;
+  --error: #F26F4D;
+  --error-soft: #FFF0EC;
+  --warning: #F3A338;
+  --warning-soft: #FFF6E8;
+  --info: #23BABF;
+  --info-soft: #EAF9FA;
+
+  /* Typography - preserves the font family already bundled with the theme */
+  --font-body: "Axiforma Regular", sans-serif;
+  --font-medium: "Axiforma Medium", sans-serif;
+  --font-semibold: "Axiforma SemiBold", sans-serif;
+  --font-heading: "Axiforma Bold", sans-serif;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-h6: 1rem;
+  --font-size-h5: 1.125rem;
+  --font-size-h4: 1.375rem;
+  --font-size-h3: clamp(1.5rem, 1.15rem + 1vw, 2rem);
+  --font-size-h2: clamp(2rem, 1.45rem + 1.7vw, 2.8125rem);
+  --font-size-h1: clamp(2.5rem, 1.8rem + 2.5vw, 4rem);
+  --line-height-body: 1.75;
+  --line-height-heading: 1.18;
+
+  /* Spacing - 4px base scale */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 2.5rem;
+  --space-8: 3rem;
+  --space-9: 4rem;
+  --space-10: 5rem;
+  --space-11: 6rem;
+  --space-12: 7.5rem;
+  --section-space-y: 7.5rem;
+
+  /* Shape */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+  --radius-pill: 999px;
+
+  /* Elevation */
+  --shadow-xs: 0 1px 2px rgba(2, 8, 66, 0.05);
+  --shadow-sm: 0 8px 24px rgba(2, 8, 66, 0.07);
+  --shadow-md: 0 18px 45px rgba(2, 8, 66, 0.10);
+  --shadow-focus: 0 0 0 4px rgba(0, 68, 235, 0.14);
+
+  /* Motion */
+  --transition-fast: 160ms ease;
+  --transition-base: 300ms ease;
+
+  /* Compatibility aliases for the existing Techco / Bootstrap-based theme */
+  --bs-body-font-family: var(--font-body);
+  --bs-heading-font-family: var(--font-heading);
+  --bs-body-color: var(--text-secondary);
+  --bs-body-color-rgb: 73, 81, 91;
+  --bs-body-bg: var(--page-background);
+  --bs-primary: var(--brand-primary);
+  --bs-primary-rgb: 0, 68, 235;
+  --bs-secondary: var(--brand-accent);
+  --bs-secondary-rgb: 71, 177, 106;
+  --bs-dark: var(--brand-secondary);
+  --bs-dark-rgb: 2, 8, 66;
+  --bs-light: var(--surface-alt);
+  --bs-light-rgb: 241, 246, 252;
+  --bs-success: var(--success);
+  --bs-success-rgb: 71, 177, 106;
+  --bs-danger: var(--error);
+  --bs-danger-rgb: 242, 111, 77;
+  --bs-warning: var(--warning);
+  --bs-warning-rgb: 243, 163, 56;
+  --bs-info: var(--info);
+  --bs-info-rgb: 35, 186, 191;
+  --bs-primary-bg-subtle: rgba(0, 68, 235, 0.10);
+  --bs-secondary-bg-subtle: rgba(71, 177, 106, 0.10);
+  --bs-success-bg-subtle: var(--success-soft);
+  --bs-danger-bg-subtle: var(--error-soft);
+  --bs-warning-bg-subtle: var(--warning-soft);
+  --bs-info-bg-subtle: var(--info-soft);
+  --bs-border-color: var(--border);
+  --bs-border-color-translucent: rgba(227, 240, 255, 1);
+  --bs-border-radius: var(--radius-md);
+  --bs-border-radius-sm: var(--radius-sm);
+  --bs-border-radius-pill: var(--radius-pill);
+  --bs-transition: var(--transition-base);
+
+  /* Keep any legacy gradient component inside the brand blue family. */
+  --gradient-color-from: var(--brand-primary);
+  --gradient-color-to: var(--brand-primary-deep);
+}
+
+/* Elementor compatibility: higher-specificity selector intentionally wins over
+ * the exported default Elementor kit while preserving the existing markup. */
+html body.elementor-kit-6 {
+  --e-global-color-primary: var(--brand-primary);
+  --e-global-color-secondary: var(--brand-secondary);
+  --e-global-color-text: var(--text-secondary);
+  --e-global-color-accent: var(--brand-accent);
+  --e-global-typography-primary-font-family: "Axiforma Bold";
+  --e-global-typography-primary-font-weight: 700;
+  --e-global-typography-secondary-font-family: "Axiforma Medium";
+  --e-global-typography-secondary-font-weight: 500;
+  --e-global-typography-text-font-family: "Axiforma Regular";
+  --e-global-typography-text-font-weight: 400;
+  --e-global-typography-accent-font-family: "Axiforma SemiBold";
+  --e-global-typography-accent-font-weight: 600;
+}
+
+/* Base typography */
+body {
+  color: var(--text-secondary);
+  background: var(--page-background);
+  font-family: var(--font-body);
+  line-height: var(--line-height-body);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--text-primary);
+  font-family: var(--font-heading);
+  line-height: var(--line-height-heading);
+  text-wrap: balance;
+}
+
+h1 { font-size: var(--font-size-h1); }
+h2 { font-size: var(--font-size-h2); }
+h3 { font-size: var(--font-size-h3); }
+h4 { font-size: var(--font-size-h4); }
+h5 { font-size: var(--font-size-h5); }
+h6 { font-size: var(--font-size-h6); }
+
+p,
+li,
+input,
+textarea,
+select,
+button {
+  font-family: var(--font-body);
+}
+
+::selection {
+  color: var(--text-inverse);
+  background: var(--brand-primary);
+}
+
+/* Accessible focus treatment shared by links, buttons and form controls. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--brand-primary);
+  outline-offset: 3px;
+}
+
+/* Links */
+.forsk-link,
+.entry-content a:not(.btn):not(.creative_btn) {
+  color: var(--brand-primary);
+  text-decoration-color: rgba(0, 68, 235, 0.32);
+  text-underline-offset: 0.18em;
+  transition: color var(--transition-fast), text-decoration-color var(--transition-fast);
+}
+
+.forsk-link:hover,
+.entry-content a:not(.btn):not(.creative_btn):hover {
+  color: var(--brand-primary-deep);
+  text-decoration-color: currentColor;
+}
+
+/* Buttons - retain the homepage pill geometry and restrained lift interaction. */
+.btn,
+.forsk-btn {
+  min-height: 52px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-semibold);
+  font-weight: 600;
+  transition: transform var(--transition-base), box-shadow var(--transition-base),
+    background-color var(--transition-base), border-color var(--transition-base), color var(--transition-base);
+}
+
+.btn:hover,
+.forsk-btn:hover {
+  transform: translateY(-2px);
+}
+
+.forsk-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: 0.875rem 1.75rem;
+  border: 1px solid transparent;
+  text-decoration: none;
+}
+
+.forsk-btn--primary {
+  color: var(--text-inverse);
+  background: var(--brand-primary);
+  border-color: var(--brand-primary);
+  box-shadow: 0 10px 26px rgba(0, 68, 235, 0.18);
+}
+
+.forsk-btn--primary:hover {
+  color: var(--text-inverse);
+  background: var(--brand-primary-deep);
+  border-color: var(--brand-primary-deep);
+  box-shadow: 0 14px 30px rgba(0, 68, 235, 0.24);
+}
+
+.forsk-btn--accent {
+  color: var(--text-inverse);
+  background: var(--brand-accent);
+  border-color: var(--brand-accent);
+}
+
+.forsk-btn--accent:hover {
+  color: var(--text-inverse);
+  background: var(--brand-accent-deep);
+  border-color: var(--brand-accent-deep);
+}
+
+.forsk-btn--outline {
+  color: var(--brand-secondary);
+  background: transparent;
+  border-color: var(--border-strong);
+}
+
+.forsk-btn--outline:hover {
+  color: var(--brand-primary);
+  background: var(--brand-primary-soft);
+  border-color: var(--brand-primary);
+}
+
+/* Replace the old blue-to-purple default with a restrained brand-blue gradient.
+ * Existing pages keep the same button class and dimensions. */
+.btn-gradient {
+  background: linear-gradient(99deg, var(--brand-primary) 0%, var(--brand-primary-deep) 100%);
+}
+
+/* Cards */
+.card,
+.forsk-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xs);
+}
+
+.forsk-card {
+  padding: var(--space-6);
+  transition: transform var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.forsk-card--interactive:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0, 68, 235, 0.24);
+  box-shadow: var(--shadow-md);
+}
+
+/* Forms */
+.form-control,
+.form-select,
+.forsk-field,
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="url"],
+input[type="search"],
+input[type="number"],
+textarea,
+select {
+  color: var(--text-primary);
+  background-color: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast);
+}
+
+.form-control,
+.form-select,
+.forsk-field {
+  min-height: 52px;
+}
+
+textarea.form-control,
+textarea.forsk-field {
+  min-height: 140px;
+}
+
+.form-control::placeholder,
+.forsk-field::placeholder,
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-muted);
+  opacity: 0.82;
+}
+
+.form-control:focus,
+.form-select:focus,
+.forsk-field:focus,
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="number"]:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--brand-primary);
+  box-shadow: var(--shadow-focus);
+}
+
+.is-valid,
+.forsk-field--success {
+  border-color: var(--success) !important;
+}
+
+.is-invalid,
+.forsk-field--error {
+  border-color: var(--error) !important;
+}
+
+.forsk-form-message--success { color: var(--success); }
+.forsk-form-message--error { color: var(--error); }
+
+/* Badges */
+.badge,
+.forsk-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-semibold);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.forsk-badge {
+  padding: 0.5rem 0.75rem 0.4rem;
+  font-size: var(--font-size-xs);
+  color: var(--brand-primary-deep);
+  background: var(--brand-primary-soft);
+  border: 1px solid rgba(0, 68, 235, 0.12);
+}
+
+.forsk-badge--accent {
+  color: var(--brand-accent-deep);
+  background: var(--brand-accent-soft);
+  border-color: rgba(71, 177, 106, 0.16);
+}
+
+/* Section / surface standards */
+.section_space,
+.forsk-section {
+  padding-top: var(--section-space-y);
+  padding-bottom: var(--section-space-y);
+}
+
+.forsk-section--alt { background: var(--surface-alt); }
+.forsk-section--dark {
+  color: rgba(255, 255, 255, 0.82);
+  background: var(--surface-dark);
+}
+.forsk-section--dark h1,
+.forsk-section--dark h2,
+.forsk-section--dark h3,
+.forsk-section--dark h4,
+.forsk-section--dark h5,
+.forsk-section--dark h6 { color: var(--text-inverse); }
+
+.forsk-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+  color: var(--brand-primary-deep);
+  font-family: var(--font-semibold);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Shared border / shadow utility classes for new and progressively migrated UI. */
+.forsk-surface { background: var(--surface); }
+.forsk-surface-alt { background: var(--surface-alt); }
+.forsk-border { border: 1px solid var(--border); }
+.forsk-radius-sm { border-radius: var(--radius-sm); }
+.forsk-radius-md { border-radius: var(--radius-md); }
+.forsk-radius-lg { border-radius: var(--radius-lg); }
+.forsk-radius-xl { border-radius: var(--radius-xl); }
+.forsk-shadow-sm { box-shadow: var(--shadow-sm); }
+.forsk-shadow-md { box-shadow: var(--shadow-md); }
+
+/* Responsive rhythm: preserve 120px desktop spacing while tightening naturally. */
+@media (max-width: 1199.98px) {
+  :root { --section-space-y: 6rem; }
+}
+
+@media (max-width: 991.98px) {
+  :root { --section-space-y: 5rem; }
+}
+
+@media (max-width: 767.98px) {
+  :root {
+    --section-space-y: 4rem;
+    --font-size-h1: clamp(2.25rem, 1.8rem + 2vw, 3rem);
+  }
+
+  .forsk-card { padding: var(--space-5); }
+  .forsk-btn { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
