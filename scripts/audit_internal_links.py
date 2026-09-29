@@ -202,10 +202,10 @@ def classify_page(name: str) -> str:
     if name.startswith("project-") and not name.startswith("project-category-"):
         return "case_study"
     if name.startswith("blog-page-"):
-        return "resource_hub"
+        return "pagination"
     if name.startswith(ARCHIVE_PREFIXES):
         return "archive"
-    if name == "hello-world.html":
+    if name == "hello-world.html" or name.endswith("-old.html"):
         return "legacy"
     if name.endswith(".html"):
         return "article"
@@ -296,10 +296,10 @@ def iter_html(root: Path) -> Iterable[Path]:
 
 
 def is_primary(page_type: str) -> bool:
-    return page_type not in {"archive", "legacy", "other"}
+    return page_type not in {"archive", "pagination", "legacy", "other"}
 
 
-def audit(root: Path, excessive_unique: int, weak_contextual: int) -> dict:
+def audit(root: Path, excessive_unique: int, excessive_navigation: int, weak_contextual: int) -> dict:
     old_to_flat, flat_to_pretty = load_page_map(root)
     html_files = [p.name for p in iter_html(root)]
     file_set = set(html_files)
@@ -310,7 +310,9 @@ def audit(root: Path, excessive_unique: int, weak_contextual: int) -> dict:
     inbound_contextual: dict[str, set[str]] = defaultdict(set)
     outbound_unique: dict[str, set[str]] = defaultdict(set)
     outbound_contextual: dict[str, set[str]] = defaultdict(set)
+    outbound_navigation: dict[str, set[str]] = defaultdict(set)
     occurrence_counts = Counter()
+    navigation_occurrence_counts = Counter()
     anchor_counts: dict[str, Counter] = defaultdict(Counter)
     cross_cluster_review: list[dict] = []
 
@@ -372,9 +374,13 @@ def audit(root: Path, excessive_unique: int, weak_contextual: int) -> dict:
                         "anchor": link.anchor,
                         "reason": f"Cross-cluster service link: {source_cluster} -> {target_cluster}; review for genuine user relevance.",
                     })
+            else:
+                outbound_navigation[path.name].add(target)
+                navigation_occurrence_counts[path.name] += 1
 
     pages = []
-    orphan_pages = []
+    absolute_orphan_pages = []
+    contextual_orphan_pages = []
     weak_pages = []
     excessive_pages = []
 
@@ -384,6 +390,7 @@ def audit(root: Path, excessive_unique: int, weak_contextual: int) -> dict:
         incoming_contextual_count = len(inbound_contextual[name])
         outgoing_unique_count = len(outbound_unique[name])
         outgoing_contextual_count = len(outbound_contextual[name])
+        outgoing_navigation_count = len(outbound_navigation[name])
 
         row = {
             "file": name,
@@ -394,12 +401,17 @@ def audit(root: Path, excessive_unique: int, weak_contextual: int) -> dict:
             "incoming_contextual": incoming_contextual_count,
             "outgoing_unique": outgoing_unique_count,
             "outgoing_contextual": outgoing_contextual_count,
+            "outgoing_navigation": outgoing_navigation_count,
             "link_occurrences": occurrence_counts[name],
+            "navigation_occurrences": navigation_occurrence_counts[name],
         }
         pages.append(row)
 
+        if name != "index.html" and incoming_all_count == 0:
+            absolute_orphan_pages.append(row)
+
         if name != "index.html" and is_primary(ptype) and incoming_contextual_count == 0:
-            orphan_pages.append(row)
+            contextual_orphan_pages.append(row)
         elif (
             name != "index.html"
             and is_primary(ptype)
@@ -407,11 +419,16 @@ def audit(root: Path, excessive_unique: int, weak_contextual: int) -> dict:
         ):
             weak_pages.append(row)
 
-        if outgoing_unique_count > excessive_unique:
+        if (
+            outgoing_unique_count > excessive_unique
+            or outgoing_navigation_count > excessive_navigation
+        ):
             excessive_pages.append(row)
 
     anchor_warnings = []
     for target, counts in anchor_counts.items():
+        if not is_primary(classify_page(target)):
+            continue
         total = sum(counts.values())
         if total < 4:
             continue
@@ -430,7 +447,8 @@ def audit(root: Path, excessive_unique: int, weak_contextual: int) -> dict:
     return {
         "pages": pages,
         "broken_links": broken,
-        "orphan_pages": orphan_pages,
+        "absolute_orphan_pages": absolute_orphan_pages,
+        "contextual_orphan_pages": contextual_orphan_pages,
         "weak_pages": weak_pages,
         "excessive_pages": excessive_pages,
         "cross_cluster_review": cross_cluster_review,
@@ -439,7 +457,8 @@ def audit(root: Path, excessive_unique: int, weak_contextual: int) -> dict:
             "html_pages": len(html_files),
             "links_evaluated": len(all_links),
             "broken_links": len(broken),
-            "orphan_primary_pages": len(orphan_pages),
+            "absolute_orphan_pages": len(absolute_orphan_pages),
+            "contextual_orphan_primary_pages": len(contextual_orphan_pages),
             "weak_primary_pages": len(weak_pages),
             "excessive_pages": len(excessive_pages),
             "cross_cluster_review": len(cross_cluster_review),
@@ -467,6 +486,12 @@ def main() -> int:
         help="Flag pages above this number of unique internal targets",
     )
     parser.add_argument(
+        "--excessive-navigation",
+        type=int,
+        default=35,
+        help="Flag pages above this number of unique non-contextual/navigation targets",
+    )
+    parser.add_argument(
         "--weak-contextual",
         type=int,
         default=1,
@@ -476,7 +501,7 @@ def main() -> int:
 
     root = Path(args.root).resolve()
     out = root / args.out
-    result = audit(root, args.excessive_unique, args.weak_contextual)
+    result = audit(root, args.excessive_unique, args.excessive_navigation, args.weak_contextual)
 
     out.mkdir(parents=True, exist_ok=True)
     (out / "internal-link-summary.json").write_text(
@@ -485,12 +510,15 @@ def main() -> int:
     )
 
     audit_rows = []
-    orphan_set = {r["file"] for r in result["orphan_pages"]}
+    absolute_orphan_set = {r["file"] for r in result["absolute_orphan_pages"]}
+    contextual_orphan_set = {r["file"] for r in result["contextual_orphan_pages"]}
     weak_set = {r["file"] for r in result["weak_pages"]}
     excessive_set = {r["file"] for r in result["excessive_pages"]}
     for row in result["pages"]:
         status = []
-        if row["file"] in orphan_set:
+        if row["file"] in absolute_orphan_set:
+            status.append("ORPHAN_ALL")
+        if row["file"] in contextual_orphan_set:
             status.append("ORPHAN_CONTEXTUAL")
         if row["file"] in weak_set:
             status.append("WEAK_CONTEXTUAL")
@@ -506,7 +534,7 @@ def main() -> int:
         [
             "url", "file", "type", "cluster", "incoming_all",
             "incoming_contextual", "outgoing_unique", "outgoing_contextual",
-            "link_occurrences", "finding",
+            "outgoing_navigation", "link_occurrences", "navigation_occurrences", "finding",
         ],
     )
     write_csv(
