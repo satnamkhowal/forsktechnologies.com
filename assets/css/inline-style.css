@@ -1,2 +1,93 @@
 /* Forsk Technologies global design-system compatibility layer. */
 @import url("./forsk-design-system.css");
+
+/* Forsk Technologies brand-logo implementation
+   Keeps official artwork proportional and prevents logo assets from driving header height. */
+
+:root {
+  --forsk-logo-header-max-width: 180px;
+  --forsk-logo-header-max-height: 42px;
+  --forsk-logo-sticky-max-height: 36px;
+  --forsk-logo-mobile-max-width: 150px;
+  --forsk-logo-mobile-max-height: 34px;
+  --forsk-logo-footer-max-width: 200px;
+  --forsk-logo-footer-max-height: 52px;
+}
+
+.site_header .header-logo,
+.site_header .site_logo {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+}
+
+.site_header .header-logo > a,
+.site_header .site_logo > a,
+.site_header .site_logo .site_link {
+  display: inline-flex;
+  align-items: center;
+  line-height: 0;
+}
+
+.site_header .header-logo img,
+.site_header .site_logo img,
+.forsk-brand-logo {
+  display: block;
+  width: auto !important;
+  height: auto !important;
+  max-width: var(--forsk-logo-header-max-width);
+  max-height: var(--forsk-logo-header-max-height);
+  object-fit: contain;
+  object-position: left center;
+  flex: 0 0 auto;
+}
+
+/* Current Header 3 uses a white navigation surface. Replace the exported theme mark
+   with the official horizontal Forsk Technologies light-surface variant site-wide. */
+.site_header_3 .header-logo img {
+  content: url("../images/logo/forsk-technologies-horizontal-logo-blue-black-green-ai-agi-white-background.png");
+}
+
+/* Header 2 / dark hero headers: use the official high-contrast mark before sticky state. */
+.site_header_2 .header-logo img:first-child,
+.machine_learning_header .header-logo img:first-child,
+.forsk-brand-logo--dark-surface {
+  content: url("../images/logo/forsk-technologies-logo-white-green-ai-agi-dark-background.png");
+}
+
+/* Sticky headers use a white surface in the existing theme. */
+.site_header .stricked-menu .header-logo img,
+.site_header.sticky .header-logo img {
+  max-height: var(--forsk-logo-sticky-max-height);
+}
+
+.site_header_2 .stricked-menu .header-logo img:nth-child(2),
+.forsk-brand-logo--light-surface {
+  content: url("../images/logo/forsk-technologies-horizontal-logo-blue-black-green-ai-agi-white-background.png");
+}
+
+/* Reusable footer rule: apply .forsk-brand-logo--footer to the chosen dark-surface asset. */
+.forsk-brand-logo--footer {
+  width: auto !important;
+  height: auto !important;
+  max-width: var(--forsk-logo-footer-max-width);
+  max-height: var(--forsk-logo-footer-max-height);
+  object-fit: contain;
+  object-position: left center;
+}
+
+@media (max-width: 991.98px) {
+  .site_header .header-logo img,
+  .site_header .site_logo img,
+  .forsk-brand-logo {
+    max-width: var(--forsk-logo-mobile-max-width);
+    max-height: var(--forsk-logo-mobile-max-height);
+  }
+}
+
+@media (max-width: 575.98px) {
+  :root {
+    --forsk-logo-mobile-max-width: 138px;
+    --forsk-logo-mobile-max-height: 32px;
+  }
+}
