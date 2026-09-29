@@ -16,21 +16,13 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 $requestId = 'ENQ-' . gmdate('Ymd') . '-' . strtoupper(bin2hex(random_bytes(4)));
-$sourcePage = forsk_enquiry_value($_POST, ['source_page'], 255);
+$sourcePage = forsk_enquiry_clean_source_page($_POST['source_page'] ?? '');
 
 if (!forsk_enquiry_origin_allowed()) {
     forsk_enquiry_log('rejected_origin', $requestId, ['source_page' => $sourcePage]);
     forsk_enquiry_respond(403, [
         'ok' => false,
         'message' => 'This request could not be verified. Please reload the page and try again.',
-    ]);
-}
-
-if (forsk_enquiry_rate_limited()) {
-    forsk_enquiry_log('rate_limited', $requestId, ['source_page' => $sourcePage]);
-    forsk_enquiry_respond(429, [
-        'ok' => false,
-        'message' => 'Too many submissions were received. Please try again later.',
     ]);
 }
 
@@ -51,6 +43,14 @@ if (!forsk_enquiry_verify_csrf($csrf)) {
     forsk_enquiry_respond(403, [
         'ok' => false,
         'message' => 'Your form session expired or could not be verified. Please reload the page and try again.',
+    ]);
+}
+
+if (forsk_enquiry_rate_limited()) {
+    forsk_enquiry_log('rate_limited', $requestId, ['source_page' => $sourcePage]);
+    forsk_enquiry_respond(429, [
+        'ok' => false,
+        'message' => 'Too many submissions were received. Please try again later.',
     ]);
 }
 
