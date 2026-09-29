@@ -2,6 +2,10 @@
 (() => {
   'use strict';
   const base = new URL('../../', document.currentScript.src);
+  const SITE_NAME = 'Forsk Technologies';
+  const REQUEST_FILENAME = 'forsk-technologies-request.txt';
+  const getSearchIndex = () => window.TECHCO_SEARCH || [];
+
   const ready = () => {
     document.querySelectorAll('.elementor-invisible').forEach(e => e.classList.remove('elementor-invisible'));
     document.querySelectorAll('.e-con.e-parent').forEach(e => e.classList.add('e-lazyloaded'));
@@ -56,16 +60,16 @@
           const close = document.createElement('button'); close.textContent = 'Close'; close.className='static-button'; close.addEventListener('click',()=>dialog.close());
           const list = document.createElement('ul');
           const words = query.toLowerCase().split(/\s+/).filter(Boolean);
-          const results = words.length ? (window.TECHCO_SEARCH || []).filter(p => words.every(w => (p.title+' '+p.text).toLowerCase().includes(w))).slice(0,30) : [];
+          const results = words.length ? getSearchIndex().filter(p => words.every(w => (p.title+' '+p.text).toLowerCase().includes(w))).slice(0,30) : [];
           results.forEach(p => {const li=document.createElement('li'),a=document.createElement('a');a.href=new URL(p.url,base);a.textContent=p.title;li.append(a);list.append(li);});
           if (!results.length) {const li=document.createElement('li');li.textContent=query?'No matching pages found. Try another keyword.':'Enter a keyword to search.';list.append(li);}
           dialog.append(heading,list,close);document.body.append(dialog);dialog.addEventListener('close',()=>dialog.remove());dialog.showModal();
         } else {
           // Keep non-enquiry static demo forms (for example the existing footer newsletter) unchanged.
           const fields=[...new FormData(form)].filter(([key])=>!key.startsWith('_'));
-          const content='Techco website request\n\n'+fields.map(([key,value])=>`${key}: ${value}`).join('\n')+'\n\nThis file is a local copy. It has not been sent or subscribed.';
+          const content=`${SITE_NAME} website request\n\n`+fields.map(([key,value])=>`${key}: ${value}`).join('\n')+'\n\nThis file is a local copy. It has not been sent or subscribed.';
           const url=URL.createObjectURL(new Blob([content],{type:'text/plain;charset=utf-8'}));
-          const a=document.createElement('a');a.href=url;a.download='techco-request.txt';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+          const a=document.createElement('a');a.href=url;a.download=REQUEST_FILENAME;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
           const note = form.querySelector('.static-form-note');
           if (note) note.textContent='Your request was downloaded to your device. Nothing has been sent or subscribed.';
         }
