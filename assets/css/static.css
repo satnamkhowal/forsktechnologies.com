@@ -23,6 +23,60 @@
 img{max-width:100%}
 :focus-visible{outline:3px solid var(--forsk-focus);outline-offset:4px}
 .elementor-invisible{visibility:visible!important}
+
+/* Shared Forsk header/navigation layer. Homepage appearance and nav hierarchy are preserved. */
+.site_header .header__wrap,.site_header .main-menu__wrap,.site_header .menu-right{min-width:0}
+.site_header .xb-logo-mobile a{display:inline-flex;align-items:center;max-width:100%;line-height:0}
+.site_header .xb-logo-mobile img{display:block;width:auto!important;height:auto!important;max-width:var(--forsk-logo-mobile-max-width,150px);max-height:var(--forsk-logo-mobile-max-height,34px);object-fit:contain;object-position:left center}
+.site_header .main-menu>ul>li>a{min-height:44px;display:inline-flex;align-items:center;position:relative;white-space:nowrap}
+.site_header .header_btns_group .btn{min-height:48px;display:inline-flex;align-items:center;justify-content:center;white-space:nowrap}
+.site_header .mobile_menu_btn{width:48px;height:48px;min-width:48px;min-height:48px;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;cursor:pointer}
+.site_header .mobile_menu_btn:focus-visible,.site_header .xb-menu-close:focus-visible,.site_header .xb-menu-toggle:focus-visible,.site_header a:focus-visible{outline:3px solid var(--forsk-brand-primary);outline-offset:3px}
+.site_header .main-menu>ul>li.current-menu-item>a,.site_header .main-menu>ul>li.current-menu-ancestor>a,.site_header .main-menu>ul>li.current_page_item>a,.site_header .main-menu>ul>li.current_page_ancestor>a{color:var(--forsk-brand-primary)}
+.site_header .main-menu>ul>li.current-menu-item>a::after,.site_header .main-menu>ul>li.current-menu-ancestor>a::after{content:"";position:absolute;left:0;right:0;bottom:7px;height:2px;border-radius:999px;background:currentColor}
+.site_header .xb-header-nav li.current-menu-item>a,.site_header .xb-header-nav li.current-menu-ancestor>a{color:var(--forsk-brand-primary);background:rgba(0,68,235,.08)}
+.site_header .sub-menu,.site_header .mega_menu_wrapper{max-width:calc(100vw - 30px)}
+.site_header .xb-header-menu .sub-menu,.site_header .xb-header-menu .mega_menu_wrapper{max-width:100%}
+
+@media(min-width:1200px){
+  .site_header .xb-menu-inner{display:block!important;min-width:0}
+  .site_header .xb-nav-mobile{display:none!important}
+  .site_header .main-menu{min-width:0}
+  .site_header .main-menu li.menu-item-has-children:focus-within>.sub-menu,.site_header .main-menu li.forsk-submenu-open>.sub-menu{display:block!important;opacity:1!important;visibility:visible!important;pointer-events:auto!important}
+  .site_header_3 .xb-menu-inner{padding-left:clamp(24px,3vw,60px);padding-right:clamp(24px,3vw,60px)}
+  .site_header_3 .main-menu>ul>li:not(:last-child){margin-right:clamp(20px,2.2vw,40px)}
+}
+@media(min-width:1200px) and (max-width:1399.98px){
+  .site_header_3{padding:26px 0}
+  .site_header_3 .xb-menu-inner{padding-left:22px;padding-right:22px}
+  .site_header_3 .main-menu>ul>li:not(:last-child){margin-right:20px}
+  .site_header_3 .main-menu>ul>li>a{font-size:14px}
+  .site_header_3 .header_btns_group .btn{padding-left:18px;padding-right:18px}
+}
+@media(max-width:1199.98px){
+  .site_header .xb-menu-inner.d-lg-block,.site_header .xb-menu-inner{display:none!important}
+  .site_header .xb-nav-mobile{display:inline-flex!important}
+  .site_header_3{padding:20px 0}
+  .site_header .header_btns_group{gap:10px;align-items:center;flex-wrap:nowrap}
+  .site_header .xb-header-menu{width:min(92vw,420px);max-width:420px;height:100dvh;max-height:100dvh;overflow:hidden}
+  .site_header .xb-header-menu-scroll{height:100%;max-height:100dvh;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding-bottom:max(24px,env(safe-area-inset-bottom))}
+  .site_header .xb-header-nav a{min-height:48px;display:flex;align-items:center;padding-top:10px;padding-bottom:10px}
+  .site_header .xb-header-nav li.menu-item-has-children{position:relative}
+  .site_header .xb-menu-toggle{width:48px;height:48px;min-width:48px;min-height:48px;display:flex!important;align-items:center;justify-content:center;cursor:pointer;position:absolute;right:0;top:0;z-index:2;border-radius:8px}
+  .site_header .xb-menu-close{width:48px;height:48px;min-width:48px;min-height:48px;cursor:pointer}
+  .site_header .xb-header-nav .sub-menu a{padding-right:52px}
+  body.forsk-nav-open{overflow:hidden}
+}
+@media(max-width:767.98px){
+  .site_header_3{padding:14px 0}
+  .site_header_3 .header_bottom{padding:0}
+  .site_header .header_btns_group>li:not(:first-child){display:none}
+  .site_header .xb-header-menu{width:min(94vw,390px);max-width:94vw}
+}
+@media(max-width:374.98px){
+  .site_header .mobile_menu_btn{width:44px;height:44px;min-width:44px;min-height:44px}
+}
+
 .static-form-note{font-size:13px;line-height:1.6;margin:12px 0;clear:both}
 .static-search{width:min(680px,calc(100% - 32px));max-height:80vh;padding:30px;border:0;border-radius:16px;color:#131923;background:#fff;box-shadow:0 20px 80px #0006}
 .static-search::backdrop{background:#081733b3}.static-search h2{font-size:26px}.static-search ul{padding-left:20px}.static-search li{margin:12px 0}.static-search a{color:#004bc4}.static-button{padding:10px 20px;border-radius:8px;border:0;background:#004bc4;color:#fff}
