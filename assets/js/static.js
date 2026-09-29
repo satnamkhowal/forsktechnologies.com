@@ -30,8 +30,21 @@
     };
 
     document.querySelectorAll('form[data-static-form]').forEach(form => {
-      // Legacy enquiry forms are migrated by enquiry-form.js. Leave any future real endpoint untouched.
-      if (isLegacyEnquiry(form)) return;
+      const action = String(form.getAttribute('action') || '').trim();
+
+      // Never replace/intercept a contact form that has already been migrated to a real endpoint.
+      if (form.dataset.staticForm === 'contact' && action && action !== '#') return;
+
+      if (isLegacyEnquiry(form)) {
+        // Prevent GET/query-string leakage while the secure enquiry script initializes.
+        form.addEventListener('submit', event => {
+          if (form.dataset.forskEnquiryReady === 'true') return;
+          event.preventDefault();
+          const note = form.querySelector('.static-form-note');
+          if (note) note.textContent = 'Secure enquiry form is initializing. Please try again.';
+        });
+        return;
+      }
 
       form.addEventListener('submit', event => {
         event.preventDefault();
