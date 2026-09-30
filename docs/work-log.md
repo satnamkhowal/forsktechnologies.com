@@ -137,3 +137,71 @@ Until verified, omit these claims rather than replacing demo claims with invente
 ### Next recommended action
 
 Create the reusable header/navigation/head/footer skeleton from the existing markup while preserving exact classes and layout, then migrate the homepage as the first controlled page. During that migration, replace the Techco/demo identity, switch to official Forsk logo assets, add safe Forsk homepage metadata, and remove unverified template claims without changing the established page structure.
+
+## 2026-09-30 — Cross-branch merge analysis and safe integration batch
+
+**Agent/workstream:** Master merge supervisor  
+**Branch:** `chore/merge-audit-log-20260930`  
+**Starting main:** `d828a0775bd0bb2f8c1551a79dad9ca790b65a51`  
+**Status:** DONE
+
+### Task
+
+Analyze all active Forsk Technologies branches against the latest `main`, identify overlapping/superseded work, begin merging low-risk validated changes, and block changes that threaten existing URLs or require runtime reconciliation.
+
+### Branch analysis summary
+
+- Reviewed the full active branch inventory and recent pull-request history before merging.
+- Treated current-tree file state as authoritative when old branches had diverged; did not assume an old PR marked merged meant every historical file delta was still missing or should be reapplied.
+- Confirmed `feat/reusable-service-page-system` is already present on current `main`; no duplicate merge was performed.
+- Confirmed design-QA loading is already present in `assets/css/inline-style.css`; stale design-QA branches were not stacked again.
+- Accessibility/header/mobile/enquiry branches overlap shared `assets/js/static.js` and/or `assets/css/static.css`; these require a single current-main reconciliation and regression pass rather than blind sequential merges.
+- `automation/php-includes-build` and `refactor/php-includes` perform broad `.html` to `.php` renames. These are BLOCKED from `main` because working/indexed `.html` URLs must be preserved until an explicit URL-safe migration and redirect/deployment plan exists.
+- `improve-about-page` is a large live-page rewrite and currently conflicts with newer `main`; it is held for clean current-main reconciliation instead of force-merging.
+
+### Merges completed
+
+1. **Shared development log** — PR `#14`
+   - Source: `website-supervisor/audit-foundation-2026-09-29`
+   - File: `docs/work-log.md`
+   - Merge commit: `7007a7652bc5f4210d747ad221261bd43198521d`
+   - Testing/review: documentation-only diff; PR mergeability checked.
+
+2. **Image audit tooling** — PR `#15`
+   - Clean integration branch: `merge/safe-foundations-20260930`
+   - Files: `.github/workflows/image-audit.yml`, `docs/image-audit-2026-09-29.md`, `scripts/audit_images.py`
+   - Merge commit: `c43c0a32a749a6be35b192d50560d85b5ada89aa`
+   - Testing: GitHub Actions `Image asset audit` completed successfully before merge.
+   - Superseded stale PR `#13` was closed after the same reviewed files were reapplied on current `main`.
+
+3. **Reusable footer foundation** — PR `#16`
+   - Clean integration branch: `merge/reusable-footer-20260930`
+   - File: `includes/footer.php`
+   - Merge commit: `7ce63a3d65dd6cd7ec2df028b4a4d6c30f9afbd6`
+   - Testing/review: one-file add-only diff; PR mergeability checked; include is not wired into current HTML pages, so current public rendering and URLs are unchanged.
+
+### Held for controlled reconciliation
+
+- PR `#3` / `feat/secure-enquiry-form-system` — REVIEW: backend and shared `static.js` integration; production delivery must be configured/tested before claiming working enquiry delivery.
+- PR `#4` / `design-system/homepage-aligned` — REVIEW: overlaps current global style import chain; visual regression required.
+- PR `#6` / `qa/mobile-responsive-audit-2026-09-29` — REVIEW: responsive CSS changes need current-main browser regression at target viewports.
+- PR `#9` / `improve-about-page` — REVIEW: large `about.html` rewrite; conflict with newer main must be reconciled without losing current theme/SEO work.
+- PR `#12` / `accessibility-audit-fixes-v3` — REVIEW: overlaps shared navigation/form JavaScript; must be reconciled with header-navigation work.
+- `header-navigation-audit` / `header-navigation-improvements` — REVIEW: large shared runtime changes; use the newer useful behavior as input to one unified integration branch, not both branches independently.
+- `refine/reusable-forsk-footer` — DONE via clean PR `#16`.
+- `audit/image-assets-2026-09-29` — DONE via clean PR `#15`; stale PR `#13` closed.
+- `forsk-php-brand-build` — superseded/behind current main; no unique merge required.
+- `accessibility-audit-fixes` and `accessibility-audit-fixes-v2` — superseded by the v3 review line; do not merge independently.
+- `design-qa-homepage-alignment-20260929` — superseded by the already merged v2/current-main design-QA layer.
+- `refine/homepage-design-foundation`, `chore/code-quality-safe-cleanup-20260929`, `feat/reusable-service-page-system` — historical merged work already represented on current main; do not blindly re-merge stale branch tips.
+
+### Known issues / blockers
+
+- No force push used.
+- No broad URL rename has been approved or merged.
+- Shared runtime branches still need combined JavaScript/CSS reconciliation and browser testing.
+- Secure enquiry backend needs authorized environment configuration and end-to-end validation before production enablement.
+
+### Next action
+
+Create one fresh integration branch from latest `main` for header/navigation + accessibility + mobile behavior, reconcile the useful changes in shared JS/CSS once, run syntax/link checks and browser/mobile regression, then merge only that unified result. Reconcile About and secure enquiry separately so content/backend risk remains isolated.
