@@ -209,6 +209,7 @@ $footerUrl = static function (string $path) use ($footerBasePath): string {
                 <ul class="forsk-footer__social" aria-label="Forsk Technologies social media">
                     <li><a href="https://www.facebook.com/forsktechnologies" target="_blank" rel="noopener noreferrer">Facebook</a></li>
                     <li><a href="https://www.instagram.com/forsktechnologies" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+                    <li><a href="https://www.linkedin.com/company/forsktechnologies" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
                 </ul>
             </div>
 
