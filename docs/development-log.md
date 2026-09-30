@@ -1,4 +1,4 @@
-# Forsk Technologies Development Log
+﻿# Forsk Technologies Development Log
 
 ## 2026-09-30 14:00 IST
 - **Task:** Start PHP slicing/location authority workstream
@@ -19,7 +19,8 @@
 - **Files changed:** 129 root HTML pages; `scripts/cleanup-template-dummy.py`; `scripts/map-page-structure.py`; `docs/page-structure-map.md`; `docs/page-structure-map.json`; `docs/development-log.md`
 - **Summary:** Replaced demo contact/address data with verified Forsk contact data, removed or neutralized fake trust counters/testimonials/client/team blocks on public pages, removed visible Techco/XpressBuddy branding from indexable pages while preserving technical theme identifiers, removed fake project client/location/date metadata, and quarantined legacy template-heavy blog/project/team/pricing pages with noindex until original content is approved. Generated a page-by-page structure inventory for all 129 root HTML pages across 10 page families.
 - **Testing performed:** Compared representative section/div counts against `origin/main`; HTML div/section balance check returned zero issues; indexable visible Techco/XpressBuddy scan returned zero; public contact scan returned only `info@forsktechnologies.com` and `+91 9610967825`; known dummy-pattern scan returned zero; secret-like diff scan returned no matches. PHP CLI is not installed on the connected Windows machine, so PHP lint/runtime validation remains pending in a PHP-enabled environment.
-- **Commit:** pending
+- **Commit:** `4a5590c0bc7f12024d9f4d02ee6e75b9eeee820b`
 - **Status:** REVIEW
 - **Known issues:** Git reports existing LF/CRLF normalization warnings and `git diff --check` reports trailing whitespace on exported HTML lines. These were not mass-normalized to avoid unnecessary formatting churn. PHP runtime/browser deployment testing still required before production merge.
 - **Next action:** Commit and push this cleanup branch, then continue PHP slicing using the generated page-structure map and run deployment/runtime QA before merging to main.
+
