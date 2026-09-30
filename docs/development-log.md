@@ -1,4 +1,4 @@
-﻿# Forsk Technologies Development Log
+# Forsk Technologies Development Log
 
 ## 2026-09-30 14:00 IST
 - **Task:** Start PHP slicing/location authority workstream
@@ -24,3 +24,15 @@
 - **Known issues:** Git reports existing LF/CRLF normalization warnings and `git diff --check` reports trailing whitespace on exported HTML lines. These were not mass-normalized to avoid unnecessary formatting churn. PHP runtime/browser deployment testing still required before production merge.
 - **Next action:** Commit and push this cleanup branch, then continue PHP slicing using the generated page-structure map and run deployment/runtime QA before merging to main.
 
+
+## 2026-09-30 17:50 IST
+- **Task:** Restore design after dummy-data cleanup regression
+- **Agent/workstream:** PHP locations / design recovery
+- **Branch:** `feat/php-locations-authority`
+- **Files changed:** Restored all root HTML pages to pre-cleanup DOM; regenerated `docs/page-structure-map.md` and `.json`; restored `scripts/map-page-structure.py`.
+- **Summary:** Reverted commit `4a5590c` because cleanup removed layout sections and changed page structure. Latest `main` social/LinkedIn updates were merged afterward. No dummy cleanup is retained in page HTML.
+- **Testing performed:** Compared root HTML against pre-cleanup baseline; representative section/div counts match original design. Compared branch root HTML against latest `origin/main`. HTML tag balance checked during diagnosis.
+- **Commit:** `45f4f77` (design rollback), `3b87091` (latest main sync).
+- **Status:** REVIEW
+- **Known issues:** PHP CLI is not installed on the connected Windows machine, so PHP lint/runtime checks remain unavailable locally.
+- **Next action:** Continue PHP slicing only with non-destructive shared includes; clean content in small page-family batches with visual regression checks.
