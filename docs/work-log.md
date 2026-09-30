@@ -205,3 +205,65 @@ Analyze all active Forsk Technologies branches against the latest `main`, identi
 ### Next action
 
 Create one fresh integration branch from latest `main` for header/navigation + accessibility + mobile behavior, reconcile the useful changes in shared JS/CSS once, run syntax/link checks and browser/mobile regression, then merge only that unified result. Reconcile About and secure enquiry separately so content/backend risk remains isolated.
+
+## 2026-09-30 — Official Facebook and Instagram website links
+
+**Date/time:** 2026-09-30 16:17 IST
+**Task:** Apply official Forsk Technologies Facebook and Instagram profiles to the website
+**Agent/workstream:** Social identity / website consistency
+**Branch:** `chore/social-profile-links-20260930`
+**Files changed:** `index.html`, `includes/footer.php`, `docs/work-log.md`
+**Status:** DONE
+
+### Summary
+
+- Replaced the live homepage footer Facebook placeholder with the official Forsk Technologies Facebook profile.
+- Replaced the unused X/Twitter placeholder in the homepage footer with the official Forsk Technologies Instagram profile while preserving the existing four-icon footer layout.
+- Added Facebook and Instagram links to the reusable PHP footer so future PHP-based pages inherit the same official social identity.
+- Added `target="_blank"` and `rel="noopener noreferrer"` for external social links and accessible labels on icon-only homepage links.
+- Left unverified LinkedIn and YouTube placeholders unchanged rather than inventing official profile URLs.
+
+### Testing performed
+
+- Verified both official URLs are present in `index.html` and `includes/footer.php`.
+- Verified the homepage social links no longer use `#` for Facebook/Instagram.
+- Verified external-link security attributes are present.
+- Reviewed the git diff for scope and confirmed the unrelated dirty `feat/php-locations-authority` worktree was not modified.
+
+### Known issues
+
+- LinkedIn and YouTube footer icons on the legacy homepage still point to `#` because no verified official URLs were supplied in this task.
+- `includes/footer.php` remains a reusable foundation and is not yet wired into all legacy `.html` pages.
+
+### Next action
+
+When verified LinkedIn/YouTube profiles are available, replace those remaining homepage placeholders. During the controlled PHP migration, use the reusable footer rather than duplicating social-profile URLs across pages.
+
+## 2026-09-30 — Official LinkedIn website link
+
+**Date/time:** 2026-09-30 17:10 IST
+**Task:** Apply official Forsk Technologies LinkedIn company profile across website social links
+**Agent/workstream:** Social identity / website consistency
+**Branch:** `chore/linkedin-profile-link-20260930`
+**Files changed:** `index.html`, `includes/footer.php`, `docs/work-log.md`
+**Status:** DONE
+
+### Summary
+
+- Applied the verified LinkedIn company URL to all existing LinkedIn icon placeholders on the homepage.
+- Added LinkedIn to the reusable PHP footer alongside Facebook and Instagram.
+- Added safe external-link attributes and accessible labels for icon-only LinkedIn links.
+
+### Testing performed
+
+- Verified the exact LinkedIn URL appears in the homepage and reusable footer.
+- Confirmed LinkedIn icon links no longer use `#`.
+- Reviewed the focused diff and ran `git diff --check`.
+
+### Known issues
+
+- YouTube and other unverified social placeholders remain unchanged until official URLs are supplied.
+
+### Next action
+
+Add any remaining verified official social profiles as they are provided, without inventing URLs.

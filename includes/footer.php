@@ -105,6 +105,23 @@ $footerUrl = static function (string $path) use ($footerBasePath): string {
             color: var(--forsk-footer-muted);
             line-height: 1.7;
         }
+        .forsk-footer__social {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 16px;
+            margin: 18px 0 0;
+            padding: 0;
+            list-style: none;
+        }
+        .forsk-footer__social a {
+            display: inline-flex;
+            min-height: 44px;
+            align-items: center;
+            color: var(--forsk-footer-muted);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .forsk-footer__social a:hover { color: #fff; }
         .forsk-footer__title {
             margin: 2px 0 14px;
             color: #fff;
@@ -189,6 +206,11 @@ $footerUrl = static function (string $path) use ($footerBasePath): string {
                     <?php endif; ?>
                 </a>
                 <p class="forsk-footer__brand-note">Explore the company, services, resources and contact page from one consistent site footer.</p>
+                <ul class="forsk-footer__social" aria-label="Forsk Technologies social media">
+                    <li><a href="https://www.facebook.com/forsktechnologies" target="_blank" rel="noopener noreferrer">Facebook</a></li>
+                    <li><a href="https://www.instagram.com/forsktechnologies" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+                    <li><a href="https://www.linkedin.com/company/forsktechnologies" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+                </ul>
             </div>
 
             <nav aria-labelledby="forsk-footer-company-title">
