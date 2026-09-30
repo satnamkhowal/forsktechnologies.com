@@ -1,0 +1,42 @@
+name: Image asset audit
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'assets/images/**'
+      - '**/*.html'
+      - '**/*.css'
+      - '**/*.js'
+      - 'scripts/audit_images.py'
+      - '.github/workflows/image-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run image audit
+        run: python scripts/audit_images.py
+
+      - name: Show generated summary
+        run: cat docs/image-audit-generated.md
+
+      - name: Upload audit results
+        uses: actions/upload-artifact@v4
+        with:
+          name: image-audit
+          path: |
+            docs/image-audit-generated.json
+            docs/image-audit-generated.md
