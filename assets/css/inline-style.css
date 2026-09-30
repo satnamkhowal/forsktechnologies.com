@@ -45,6 +45,21 @@
   content: url("../images/logo/forsk-technologies-horizontal-logo-blue-black-green-ai-agi-white-background.png");
 }
 
+/* Legacy Header 1 pages use the same verified Forsk light-surface logo and the
+   homepage hero artwork instead of the exported Techco rainbow background. */
+.site_header_1 .header-logo img {
+  content: url("../images/logo/forsk-technologies-horizontal-logo-blue-black-green-ai-agi-white-background.png");
+}
+
+.site_header_1.site_header_bg::before {
+  background: url("../images/business_consulting_hero_section_bg.jpg") center top / cover no-repeat !important;
+}
+
+.site_header_1 .header_top,
+.site_header_1 .header-logo .badge {
+  display: none !important;
+}
+
 /* Header 2 / dark hero headers: use the official high-contrast mark before sticky state. */
 .site_header_2 .header-logo img:first-child,
 .machine_learning_header .header-logo img:first-child,
