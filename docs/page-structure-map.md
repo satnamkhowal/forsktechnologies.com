@@ -1,0 +1,159 @@
+# Forsk Technologies Page Structure Map
+
+Generated from the current repository after the initial dummy-data cleanup pass.
+
+Total root HTML pages: **129**.
+
+## Page families
+
+- **author-archive**: 4 pages
+- **blog-archive**: 12 pages
+- **blog-category**: 14 pages
+- **blog-list**: 4 pages
+- **blog-tag**: 14 pages
+- **core-other**: 26 pages
+- **project-category**: 10 pages
+- **project-detail**: 14 pages
+- **service-category**: 6 pages
+- **service-detail**: 25 pages
+
+## Shared structure
+
+- Shared theme shell: head assets, desktop/mobile navigation, main content, CTA/footer areas, and local JS.
+- Core content pages use Elementor-exported section wrappers plus page-specific sections.
+- Service-detail pages share a service hero/detail/process/outcome/CTA/footer pattern.
+- Project-detail pages share project overview/requirement/result/similar-project shell; these are noindex until real project data is approved.
+- Blog list/category/tag/archive pages share listing/sidebar/CTA/footer patterns.
+- Team, pricing, portfolio and legacy index pages are noindex while template-only facts are being replaced.
+
+## All pages
+
+- `about.html` — core-other — sections: 24 — H1: About Us — noindex: NO
+- `ai-machine-learning.html` — core-other — sections: 23 — H1: Machine learning and AI solutions — noindex: NO
+- `archive-2024-06-07.html` — blog-archive — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `archive-2024-06-08-page-2.html` — blog-archive — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `archive-2024-06-08.html` — blog-archive — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `archive-2024-06-page-2.html` — blog-archive — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `archive-2024-06-page-3.html` — blog-archive — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `archive-2024-06.html` — blog-archive — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `archive-2024-11-13.html` — blog-archive — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `archive-2024-11.html` — blog-archive — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `archive-2024-page-2.html` — blog-archive — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `archive-2024-page-3.html` — blog-archive — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `archive-2024-page-4.html` — blog-archive — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `archive-2024.html` — blog-archive — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `author-admin-page-2.html` — author-archive — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `author-admin-page-3.html` — author-archive — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `author-admin-page-4.html` — author-archive — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `author-admin.html` — author-archive — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `blog-page-2.html` — blog-list — sections: 15 — H1: Blog — noindex: NO
+- `blog-page-3.html` — blog-list — sections: 15 — H1: Blog — noindex: NO
+- `blog-page-4.html` — blog-list — sections: 15 — H1: Blog — noindex: NO
+- `blog.html` — blog-list — sections: 15 — H1: Blog — noindex: NO
+- `business-consulting.html` — core-other — sections: 24 — H1: Innovative Growth Strategies — noindex: NO
+- `category-business-page-2.html` — blog-category — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `category-business.html` — blog-category — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `category-cloud-solution.html` — blog-category — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `category-cybersecurity-page-2.html` — blog-category — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `category-cybersecurity.html` — blog-category — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `category-it-solution.html` — blog-category — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `category-mobile-app-page-2.html` — blog-category — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `category-mobile-app.html` — blog-category — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `category-tech-trends-page-2.html` — blog-category — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `category-tech-trends.html` — blog-category — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `category-techsolutions.html` — blog-category — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `category-uncategorized.html` — blog-category — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `category-ux-design-page-2.html` — blog-category — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `category-ux-design.html` — blog-category — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `cloud-security-best-practices-company-should-know.html` — core-other — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `cloud-solutions.html` — core-other — sections: 34 — H1: (no H1 in source) — noindex: NO
+- `contact.html` — core-other — sections: 15 — H1: Contact Us — noindex: NO
+- `future-proofing-your-business-with-cloud-modernization.html` — core-other — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `harnessing-the-power-of-ai-and-machine-learning-in-business.html` — core-other — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `hello-world.html` — core-other — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `index-old.html` — core-other — sections: 37 — H1: Grow your Business Organic & IT Solution Technology — noindex: NO
+- `index.html` — core-other — sections: 24 — H1: Innovative Growth Strategies — noindex: NO
+- `innovation-in-action-how-consulting-firms-foster-creative-solutions.html` — core-other — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `insider-perspectives-on-it-solutions-with-techco-thought-leaders.html` — core-other — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `leading-the-digital-age-with-groundbreaking-it-technologies.html` — core-other — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `our-fields.html` — core-other — sections: 17 — H1: Our Fields — noindex: NO
+- `portfolio.html` — core-other — sections: 13 — H1: Our Portfolio — noindex: NO
+- `pricing.html` — core-other — sections: 21 — H1: Pricing Plan — noindex: NO
+- `project-astarte-medical.html` — project-detail — sections: 13 — H1: (no H1 in source) — noindex: NO
+- `project-cae-blue-phantom.html` — project-detail — sections: 13 — H1: (no H1 in source) — noindex: NO
+- `project-category-3d-design.html` — project-category — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `project-category-analysis.html` — project-category — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `project-category-app-design.html` — project-category — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `project-category-computer-software.html` — project-category — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `project-category-healthcare.html` — project-category — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `project-category-helpdesk.html` — project-category — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `project-category-marketing.html` — project-category — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `project-category-real-estate.html` — project-category — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `project-category-technology.html` — project-category — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `project-category-web-design.html` — project-category — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `project-cloud-migration-and-integration-project-it-solutions-portfolio.html` — project-detail — sections: 13 — H1: (no H1 in source) — noindex: NO
+- `project-dashboard-design.html` — project-detail — sections: 13 — H1: (no H1 in source) — noindex: NO
+- `project-driving-digital-transformation-explore-the-depth-of-our-it-projects.html` — project-detail — sections: 13 — H1: (no H1 in source) — noindex: NO
+- `project-explore-our-it-solutions-portfolio-for-public-sector-organizations-copy.html` — project-detail — sections: 13 — H1: (no H1 in source) — noindex: NO
+- `project-explore-our-it-solutions-portfolio-for-public-sector-organizations.html` — project-detail — sections: 13 — H1: (no H1 in source) — noindex: NO
+- `project-liberkeys.html` — project-detail — sections: 13 — H1: (no H1 in source) — noindex: NO
+- `project-mobile-app-design.html` — project-detail — sections: 13 — H1: (no H1 in source) — noindex: NO
+- `project-pioneering-progress-exploring-the-evolution-and-impact-of.html` — project-detail — sections: 13 — H1: (no H1 in source) — noindex: NO
+- `project-revolutionizing-it-strategies-a-closer-look-at-our-dynamic-it-solutions.html` — project-detail — sections: 13 — H1: (no H1 in source) — noindex: NO
+- `project-tech-triumphs-celebrating-our-achievements-in-it-solutions.html` — project-detail — sections: 13 — H1: (no H1 in source) — noindex: NO
+- `project-technology-solution.html` — project-detail — sections: 13 — H1: (no H1 in source) — noindex: NO
+- `project-unlocking-potential-explore-our-comprehensive-it-portfolio.html` — project-detail — sections: 13 — H1: (no H1 in source) — noindex: NO
+- `seamless-integration-of-hybrid-and-multi-cloud-environments.html` — core-other — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `service-audit-it-consulting-services.html` — service-detail — sections: 17 — H1: (no H1 in source) — noindex: NO
+- `service-aws-managed-services.html` — service-detail — sections: 17 — H1: (no H1 in source) — noindex: NO
+- `service-best-ui-ux-design-services.html` — service-detail — sections: 17 — H1: (no H1 in source) — noindex: NO
+- `service-business-process-optimization.html` — service-detail — sections: 17 — H1: (no H1 in source) — noindex: NO
+- `service-category-consultation.html` — service-category — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `service-category-management.html` — service-category — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `service-category-mobile-app.html` — service-category — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `service-category-solution.html` — service-category — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `service-category-strategy.html` — service-category — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `service-category-transfer.html` — service-category — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `service-change-management-solutions.html` — service-detail — sections: 17 — H1: (no H1 in source) — noindex: NO
+- `service-ci-cd-consulting-services.html` — service-detail — sections: 17 — H1: (no H1 in source) — noindex: NO
+- `service-cloud-build-migration.html` — service-detail — sections: 17 — H1: (no H1 in source) — noindex: NO
+- `service-cloud-devops-consulting.html` — service-detail — sections: 17 — H1: (no H1 in source) — noindex: NO
+- `service-cloud-native-consulting.html` — service-detail — sections: 17 — H1: (no H1 in source) — noindex: NO
+- `service-custom-software-development.html` — service-detail — sections: 17 — H1: (no H1 in source) — noindex: NO
+- `service-data-tracking-and-security.html` — service-detail — sections: 17 — H1: (no H1 in source) — noindex: NO
+- `service-digital-transformation-consulting.html` — service-detail — sections: 17 — H1: (no H1 in source) — noindex: NO
+- `service-it-management-services.html` — service-detail — sections: 17 — H1: (no H1 in source) — noindex: NO
+- `service-maintenance-and-customer-support.html` — service-detail — sections: 17 — H1: (no H1 in source) — noindex: NO
+- `service-market-analysis-and-expansion-strategy.html` — service-detail — sections: 17 — H1: (no H1 in source) — noindex: NO
+- `service-mobile-app-design-and-development.html` — service-detail — sections: 17 — H1: (no H1 in source) — noindex: NO
+- `service-modern-technology-solution.html` — service-detail — sections: 17 — H1: (no H1 in source) — noindex: NO
+- `service-optimize-your-cloud-efficiency.html` — service-detail — sections: 17 — H1: (no H1 in source) — noindex: NO
+- `service-performance-metrics-and-kpi-development.html` — service-detail — sections: 17 — H1: (no H1 in source) — noindex: NO
+- `service-prometheus-support.html` — service-detail — sections: 17 — H1: (no H1 in source) — noindex: NO
+- `service-strategic-planning-and-execution.html` — service-detail — sections: 17 — H1: (no H1 in source) — noindex: NO
+- `service-streamlined-cloud-management.html` — service-detail — sections: 17 — H1: (no H1 in source) — noindex: NO
+- `service-ui-ux-design-services.html` — service-detail — sections: 17 — H1: (no H1 in source) — noindex: NO
+- `service-web-application-design-and-development.html` — service-detail — sections: 17 — H1: (no H1 in source) — noindex: NO
+- `service-website-development.html` — service-detail — sections: 17 — H1: (no H1 in source) — noindex: NO
+- `services.html` — core-other — sections: 18 — H1: Our Services — noindex: NO
+- `software-company.html` — core-other — sections: 44 — H1: We Help Companies in Digitizing Their Businesses. — noindex: NO
+- `tag-app-dev-page-2.html` — blog-tag — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `tag-app-dev.html` — blog-tag — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `tag-consultants.html` — blog-tag — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `tag-cybersecurity.html` — blog-tag — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `tag-data-page-2.html` — blog-tag — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `tag-data-page-3.html` — blog-tag — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `tag-data.html` — blog-tag — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `tag-it.html` — blog-tag — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `tag-optimization.html` — blog-tag — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `tag-solution-page-2.html` — blog-tag — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `tag-solution-page-3.html` — blog-tag — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `tag-solution.html` — blog-tag — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `tag-startup.html` — blog-tag — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `tag-techsolutions.html` — blog-tag — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `team-details.html` — core-other — sections: 17 — H1: Team Details — noindex: NO
+- `team.html` — core-other — sections: 15 — H1: Team Member — noindex: NO
+- `the-next-big-thing-quantum-computing-and-its-business-applications.html` — core-other — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `top-cloud-migration-strategies-for-growing-businesses.html` — core-other — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `transforming-your-business-with-consulting-to-drive-operational-excellence.html` — core-other — sections: 15 — H1: (no H1 in source) — noindex: NO
+- `unlocking-new-possibilities-with-advanced-cloud-computing-solutions.html` — core-other — sections: 15 — H1: (no H1 in source) — noindex: NO
