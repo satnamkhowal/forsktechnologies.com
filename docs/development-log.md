@@ -48,3 +48,15 @@
 - **Status:** REVIEW — not production merged or pushed.
 - **Known issues:** Live `robots.txt`, `sitemap.xml`, `/locations/`, and `/locations/jaipur.php` return 404; location template references missing `assets/css/main.css` and has no shared header; root HTML contains legacy Techco/template copy and `action="#"` forms; PHP runtime is unavailable locally. These must be resolved and deployment-tested before merging this integration branch into `main`.
 - **Next action:** Repair the location template against the active shared layout/assets, add deployment-owned robots/sitemap routing, then rebase and selectively test the secure-enquiry workstream in a PHP-enabled staging environment.
+
+## 2026-10-02 15:17 IST
+- **Task:** Merge reviewed locations authority work into main
+- **Agent/workstream:** Forsk Technologies master integration supervisor
+- **Branch:** `main`
+- **Files changed:** `config/locations.php`, `includes/location-page.php`, `locations/index.php`, `locations/jaipur.php`, `docs/page-structure-map.md`, `docs/page-structure-map.json`, `scripts/map-page-structure.py`, `docs/development-log.md`
+- **Summary:** Fast-forwarded local `main` to the current remote main, then merged the reviewed integration branch without conflicts. Source and integration branches were preserved.
+- **Testing performed:** Clean working-tree verification and previously recorded repository, asset, security-pattern, and live-route QA checks.
+- **Commit:** `ca090b9` merge commit; this log entry is committed separately.
+- **Status:** MERGED locally; normal remote push pending completion.
+- **Known issues:** Existing live route, sitemap/robots, template CSS/header, legacy content/form, and missing local PHP-runtime findings remain open and are not resolved by this merge.
+- **Next action:** Push `main`, then repair and staging-test the documented issues.
