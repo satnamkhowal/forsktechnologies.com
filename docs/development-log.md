@@ -36,3 +36,15 @@
 - **Status:** REVIEW
 - **Known issues:** PHP CLI is not installed on the connected Windows machine, so PHP lint/runtime checks remain unavailable locally.
 - **Next action:** Continue PHP slicing only with non-destructive shared includes; clean content in small page-family batches with visual regression checks.
+
+## 2026-10-02 15:15 IST
+- **Task:** Master branch integration review and technical QA
+- **Agent/workstream:** Forsk Technologies master integration supervisor
+- **Branch:** `integration/forsk-master-qa-20261002`
+- **Files changed:** `config/locations.php`, `includes/location-page.php`, `locations/index.php`, `locations/jaipur.php`, `docs/page-structure-map.md`, `docs/page-structure-map.json`, `scripts/map-page-structure.py`, `docs/development-log.md`
+- **Summary:** Fetched/pruned remote references and audited all active/recent branches against `origin/main` (`76a28b9`). Safely merged the current, non-conflicting verified PHP locations workstream through merge commit `125b819`; its source branch remains preserved. Older PHP-include and secure-enquiry branches are materially diverged from current main and were not blindly merged. Their changes overlap shared site files and require a dedicated rebase/compatibility pass before selective integration.
+- **Testing performed:** `git diff --check`; repository object check; tracked-source secret-pattern scan; local asset-reference inspection; branch ahead/behind and changed-file overlap review; live HTTP checks for home, contact, robots, sitemap, and locations routes. PHP CLI is unavailable on this machine, so PHP lint/runtime checks could not run.
+- **Commit:** Pending the focused QA log commit.
+- **Status:** REVIEW — not production merged or pushed.
+- **Known issues:** Live `robots.txt`, `sitemap.xml`, `/locations/`, and `/locations/jaipur.php` return 404; location template references missing `assets/css/main.css` and has no shared header; root HTML contains legacy Techco/template copy and `action="#"` forms; PHP runtime is unavailable locally. These must be resolved and deployment-tested before merging this integration branch into `main`.
+- **Next action:** Repair the location template against the active shared layout/assets, add deployment-owned robots/sitemap routing, then rebase and selectively test the secure-enquiry workstream in a PHP-enabled staging environment.
