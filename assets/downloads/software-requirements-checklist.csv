@@ -1,0 +1,20 @@
+requirement_area,question,decision_or_requirement,priority,acceptance_evidence,owner,source_or_dependency,status
+Business outcome,"What problem should the product solve and how is it measured?",,Must,,Business sponsor,,Open
+Users and roles,"Who uses the product and what may each role view or change?",,Must,,Product owner,,Open
+Core workflows,"What triggers each priority workflow and what is its successful outcome?",,Must,,Product owner,,Open
+Exception paths,"What errors or rejection paths must users recover from?",,Must,,Product owner,,Open
+Scope boundary,"What is explicitly included and excluded from this release?",,Must,,Business sponsor,,Open
+Data sources,"What data is used and which system is authoritative?",,Must,,Data owner,,Open
+Data migration,"What volume format quality and mapping rules apply?",,Should,,Data owner,,Open
+Integrations,"Which external systems APIs credentials and test environments are available?",,Must,,Integration owner,,Open
+Privacy and retention,"What personal or sensitive data is processed and how long is it retained?",,Must,,Data owner,,Open
+Roles and permissions,"Which actions and records are permitted for each role?",,Must,,Product owner,,Open
+Security verification,"Which risks and OWASP ASVS requirements are applicable?",,Must,,Security reviewer,https://owasp.org/projects/asvs,Open
+Accessibility,"Which WCAG 2.2 conformance target and user journeys apply?",,Must,,Accessibility reviewer,https://www.w3.org/TR/WCAG22/,Open
+Performance,"Which actions loads environments and thresholds will be tested?",,Should,,Technical owner,,Open
+Compatibility,"Which browsers devices and operating systems are supported?",,Should,,Product owner,,Open
+Administration,"Which settings audit records reports and exports are required?",,Should,,Operations owner,,Open
+Content and legal,"Who supplies and approves copy notices consent and media?",,Should,,Content owner,,Open
+Deployment and environments,"Who owns hosting releases backups monitoring and recovery?",,Must,,Technical owner,,Open
+Handover and support,"What documentation training ownership and support boundary apply?",,Should,,Business sponsor,,Open
+Constraints,"What target window budget boundary approvals and fixed dependencies apply?",,Must,,Business sponsor,,Open

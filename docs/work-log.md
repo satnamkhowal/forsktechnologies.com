@@ -267,3 +267,10 @@ When verified LinkedIn/YouTube profiles are available, replace those remaining h
 ### Next action
 
 Add any remaining verified official social profiles as they are provided, without inventing URLs.
+## 2026-10-05 — Software requirements checklist editorial draft
+
+- Added a theme-matched article, `software-requirements-checklist.html`, targeting the distinct planning intent “software requirements checklist.”
+- Added a downloadable CSV worksheet and one archive card in `blog.html`.
+- Added accurate metadata, canonical URL, Article/BreadcrumbList structured data, internal service links and official OWASP/W3C references.
+- Preserved existing URLs and avoided claims about rankings, client results, pricing, compliance or live form delivery.
+- Validation and intent notes: `docs/priority-blog-2026-10-05.md`.
