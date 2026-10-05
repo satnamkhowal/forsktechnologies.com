@@ -60,3 +60,10 @@
 - **Status:** MERGED locally; normal remote push pending completion.
 - **Known issues:** Existing live route, sitemap/robots, template CSS/header, legacy content/form, and missing local PHP-runtime findings remain open and are not resolved by this merge.
 - **Next action:** Push `main`, then repair and staging-test the documented issues.
+## 2026-10-05 — Software requirements checklist editorial draft
+
+- Added a theme-matched article, `software-requirements-checklist.html`, targeting the distinct planning intent “software requirements checklist.”
+- Added a downloadable CSV worksheet and one archive card in `blog.html`.
+- Added accurate metadata, canonical URL, Article/BreadcrumbList structured data, internal service links and official OWASP/W3C references.
+- Preserved existing URLs and avoided claims about rankings, client results, pricing, compliance or live form delivery.
+- Validation and intent notes: `docs/priority-blog-2026-10-05.md`.
