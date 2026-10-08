@@ -1,3 +1,6 @@
+/* Forsk Technologies global design-system compatibility layer. */
+@import url("./forsk-design-system.css");
+
 /* Forsk Technologies brand-logo implementation
    Keeps official artwork proportional and prevents logo assets from driving header height. */
 
