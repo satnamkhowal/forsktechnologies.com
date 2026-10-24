@@ -30,7 +30,9 @@
 
     html { scroll-behavior: smooth; }
     body { color: var(--forsk-ink); background: var(--forsk-white); }
-    .forsk-shell { overflow: hidden; }
+    .forsk-shell { overflow-x: clip; }
+    .forsk-shell .site_header_1 + main { padding-top: 0 !important; }
+    .forsk-shell a:focus-visible, .forsk-shell button:focus-visible { outline: 3px solid var(--forsk-primary); outline-offset: 4px; box-shadow: 0 0 0 2px #fff; }
     .forsk-container { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
     .forsk-section { padding: 100px 0; }
     .forsk-section--soft { background: var(--forsk-surface); }
