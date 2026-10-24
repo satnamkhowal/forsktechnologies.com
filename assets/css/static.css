@@ -1,3 +1,5 @@
+@import url("mobile-qa.css");
+
 /* Static-site accessibility and responsive fixes. */
 img{max-width:100%} :focus-visible{outline:3px solid #0068ff;outline-offset:4px}
 .elementor-invisible{visibility:visible!important}
