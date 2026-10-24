@@ -469,3 +469,9 @@ select:focus {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Keep compact white-on-green secondary badges accessible at normal text sizes. */
+.badge.bg-secondary,
+.badge.bg-secondary.text-white {
+  color: var(--brand-secondary) !important;
+}
