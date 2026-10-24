@@ -20,20 +20,21 @@
         .skip-link{position:fixed;top:8px;left:8px;z-index:100000;padding:10px 14px;border-radius:8px;background:#fff;color:#020842;font-weight:700;transform:translateY(-160%);transition:transform .15s ease}
         .skip-link:focus{transform:translateY(0)}
         .review_bg_box.bg-success .text-white,.badge.bg-secondary{color:#020842!important}
-        @media(min-width:992px){.dropdown:focus-within>.dropdown-menu{display:block;transform:translateY(0);z-index:1000}}
+        @media(min-width:1200px){.main-menu li.menu-item-has-children:focus-within>.sub-menu{display:block;visibility:visible;opacity:1;pointer-events:auto;transform:translateY(0);z-index:1000}}
         @media(max-width:991px){.xb-menu-toggle,.xb-menu-close,.mobile_menu_btn,.xb-nav-mobile{min-width:44px!important;min-height:44px!important}.xb-menu-toggle{top:2px!important;width:44px!important;height:44px!important;line-height:44px!important}}
         @media(prefers-reduced-motion:reduce){.skip-link{transition:none}}
       `;
       document.head.append(style);
     }
 
-    const main = document.querySelector('#elementor_page_builder');
+    const main = document.querySelector('main, #elementor_page_builder, #primary, .content-area');
     if (main) {
-      main.setAttribute('role', 'main');
+      if (!main.id) main.id = 'site-main-content';
+      if (main.tagName !== 'MAIN') main.setAttribute('role', 'main');
       if (!document.querySelector('.skip-link')) {
         const skip = document.createElement('a');
         skip.className = 'skip-link';
-        skip.href = '#elementor_page_builder';
+        skip.href = '#' + main.id;
         skip.textContent = 'Skip to main content';
         document.body.prepend(skip);
       }
@@ -47,18 +48,24 @@
     });
 
     let lastMenuOpener = null;
-    const mobileMenu = document.querySelector('.xb-header-menu');
-    if (mobileMenu && !mobileMenu.id) mobileMenu.id = 'site-mobile-navigation';
+    document.querySelectorAll('.xb-header-menu').forEach((menu, index) => {
+      menu.id = 'site-mobile-navigation-' + (index + 1);
+    });
+    const menuForOpener = opener => {
+      const root = opener.closest('.site_header, .stricky, header') || document;
+      return root.querySelector('.xb-header-menu') || document.querySelector('.xb-header-menu');
+    };
     document.querySelectorAll('.xb-nav-mobile').forEach(e => {
+      const mobileMenu = menuForOpener(e);
       e.setAttribute('aria-label', 'Open navigation');
       e.setAttribute('aria-expanded', 'false');
       if (mobileMenu?.id) e.setAttribute('aria-controls', mobileMenu.id);
       e.addEventListener('click', () => {
         lastMenuOpener = e;
-        const expanded = Boolean(document.querySelector('.xb-header-menu')?.classList.contains('active'));
+        const expanded = Boolean(mobileMenu?.classList.contains('active'));
         e.setAttribute('aria-expanded', String(expanded));
         e.setAttribute('aria-label', expanded ? 'Close navigation' : 'Open navigation');
-        if (expanded) setTimeout(() => document.querySelector('.xb-header-menu.active .xb-menu-close')?.focus(), 0);
+        if (expanded) setTimeout(() => mobileMenu?.querySelector('.xb-menu-close')?.focus(), 0);
       });
     });
 
@@ -108,8 +115,10 @@
       const control = document.getElementById(label.htmlFor);
       if (!control) return;
       if (!label.textContent.trim()) {
-        label.textContent = control.getAttribute('placeholder') || 'Email address';
-        label.classList.add('visually-hidden');
+        const hiddenName = document.createElement('span');
+        hiddenName.className = 'visually-hidden';
+        hiddenName.textContent = control.getAttribute('placeholder') || 'Email address';
+        label.appendChild(hiddenName);
       }
       if (label.textContent.trim()) {
         control.removeAttribute('aria-label');
@@ -123,7 +132,7 @@
     });
 
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      document.querySelectorAll('.swiper').forEach(el => el.swiper?.autoplay?.stop?.());
+      document.querySelectorAll('.swiper, .swiper-container, .post-gallery-slider, .service_pill_carousel, .awards_slider').forEach(el => el.swiper?.autoplay?.stop?.());
     }
 
     document.querySelectorAll('form[data-static-form]').forEach(form => {
