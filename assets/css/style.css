@@ -10152,3 +10152,27 @@ Responsive For Mobile & Tablet Devices
     width: 50%;
   }
 }
+
+/* Readability pass 2026-11-09: editorial and service reading comfort. */
+:is(.entry-content, .blog-details, .single-post, .post-content, .service-details, .elementor-widget-text-editor) :is(p, li) {
+  font-size: clamp(1rem, 0.98rem + 0.12vw, 1.0625rem);
+  line-height: 1.75;
+  overflow-wrap: break-word;
+}
+:is(.entry-content, .blog-details, .single-post, .post-content, .service-details) :is(h2, h3, h4) {
+  line-height: 1.35;
+  overflow-wrap: break-word;
+}
+:is(.entry-content, .blog-details, .single-post, .post-content, .service-details) :is(pre, .code-block) {
+  max-width: 100%;
+  overflow-x: auto;
+}
+:where(a, button, input, select, textarea, summary):focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px #17477d;
+}
+@media (max-width: 767px) {
+  :is(.entry-content, .blog-details, .single-post, .post-content, .service-details, .elementor-widget-text-editor) :is(p, li) { font-size: 16px; }
+  input, select, textarea { font-size: 16px; }
+}
