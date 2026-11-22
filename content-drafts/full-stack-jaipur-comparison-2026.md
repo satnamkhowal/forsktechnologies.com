@@ -4,4 +4,4 @@
 
 Do not publish a full stack training comparison for this brand or add cross-brand course links, a Maps profile link, schema or a live route until the brand owner confirms that Forsk Technologies offers this course, resolves the public identity/branding mismatch, and provides its canonical course page.
 
-**Review evidence checked:** 21 November 2026. Public website/search evidence is not proof of course availability or verified business identity.
+**Review evidence checked:** 22 November 2026. The first-party [Hyderabad branch page](https://forsktechnologies.com/hyderabad-branch-by-groot-software/) labels its team “Team BY Groot Software” and lists a Munich address ending in “Example”; the first-party homepage still displays Techco-branded testimonials and contact details. These pages do not establish a current Forsk Technologies course or resolve its business identity. Public website/search evidence is not proof of course availability or verified business identity.
